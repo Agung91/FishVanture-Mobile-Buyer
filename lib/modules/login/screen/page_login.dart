@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Login',
+                'Masuk',
                 style: CustomTextStyle.heading4Medium,
               ),
             ),
@@ -45,6 +45,7 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: CustomButton(
+              textButton: 'Login',
               onTap: () async {},
             ),
           ),
