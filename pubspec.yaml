@@ -39,6 +39,9 @@ dependencies:
   provider: ^6.0.5
   dio: ^5.2.1
   flutter_secure_storage: ^8.0.0
+  iconsax: ^0.0.8
+  iconly: ^1.0.1
+
 cupertino_icons: ^1.0.2
 
 dev_dependencies:

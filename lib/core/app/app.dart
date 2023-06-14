@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:app/modules/login/screen/page_login.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -10,54 +12,45 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-    ;
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children: [
+            RouteToPage(
+              pageName: 'Login Page',
+              page: const LoginPage(),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+class RouteToPage extends StatelessWidget {
+  const RouteToPage({
+    Key? key,
+    required this.pageName,
+    required this.page,
+  }) : super(key: key);
+
+  final String pageName;
+  final Widget page;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      // onTap: () {},
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => page,
+          )),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Center(child: Text(pageName)),
       ),
     );
   }
