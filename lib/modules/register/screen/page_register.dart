@@ -2,6 +2,8 @@ import 'package:app/common/widgets/button.dart';
 import 'package:app/common/widgets/text_input.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/core/route/bloc_route.dart';
+import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/register/bloc/bloc_register.dart';
 import 'package:app/modules/register/repo/repo_register.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,7 @@ class RegisterPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: TextInput(
                 sStream: blocRegister.email,
+                keyboardType: TextInputType.emailAddress,
                 label: 'Email',
                 hint: 'Masukkan Email',
               ),
@@ -53,6 +56,7 @@ class RegisterPage extends StatelessWidget {
                 sStream: blocRegister.password,
                 label: 'Password',
                 hint: 'Masukkan Password',
+                obscureText: true,
               ),
             ),
             const SizedBox(height: 26.0),
@@ -62,6 +66,7 @@ class RegisterPage extends StatelessWidget {
                 sStream: blocRegister.konfirmPassword,
                 label: 'Konfirmasi Password',
                 hint: 'Masukkan Password',
+                obscureText: true,
               ),
             ),
             const SizedBox(height: 32.0),
@@ -69,7 +74,14 @@ class RegisterPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: CustomButton(
                 textButton: 'Daftar',
-                onTap: () {},
+                onTap: () async {
+                  await blocRegister.regisiter();
+                  final snackBar = SnackBar(
+                    content: Text('Berhasil!!!'),
+                  );
+                  RouteBloc().push(RouteLogin());
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
               ),
             ),
             Row(

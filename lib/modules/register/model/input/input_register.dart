@@ -5,13 +5,11 @@ class RegsiterInput {
   final String email;
   final String password;
   final String applicationType;
-  final bool status;
   RegsiterInput({
     required this.name,
     required this.email,
     required this.password,
     required this.applicationType,
-    required this.status,
   });
 
   RegsiterInput copyWith({
@@ -19,14 +17,12 @@ class RegsiterInput {
     String? email,
     String? password,
     String? applicationType,
-    bool? status,
   }) {
     return RegsiterInput(
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
       applicationType: applicationType ?? this.applicationType,
-      status: status ?? this.status,
     );
   }
 
@@ -36,7 +32,6 @@ class RegsiterInput {
       'email': email,
       'password': password,
       'applicationType': applicationType,
-      'status': status,
     };
   }
 
@@ -46,7 +41,6 @@ class RegsiterInput {
       email: map['email'] ?? '',
       password: map['password'] ?? '',
       applicationType: map['applicationType'] ?? '',
-      status: map['status'] ?? false,
     );
   }
 
@@ -57,7 +51,7 @@ class RegsiterInput {
 
   @override
   String toString() {
-    return 'RegsiterInput(name: $name, email: $email, password: $password, applicationType: $applicationType, status: $status)';
+    return 'RegsiterInput(name: $name, email: $email, password: $password, applicationType: $applicationType)';
   }
 
   @override
@@ -68,8 +62,7 @@ class RegsiterInput {
         other.name == name &&
         other.email == email &&
         other.password == password &&
-        other.applicationType == applicationType &&
-        other.status == status;
+        other.applicationType == applicationType;
   }
 
   @override
@@ -77,7 +70,6 @@ class RegsiterInput {
     return name.hashCode ^
         email.hashCode ^
         password.hashCode ^
-        applicationType.hashCode ^
-        status.hashCode;
+        applicationType.hashCode;
   }
 }

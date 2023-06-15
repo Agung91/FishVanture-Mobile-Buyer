@@ -7,7 +7,10 @@ class RegisterRepo extends HttpService implements RegsiterService {
   @override
   Future<String?> register(RegsiterInput input) async {
     try {
-      final response = await post('$host/create-user');
+      final response = await post(
+        '$host/create-user',
+        body: input.toMap(),
+      );
       return response.id;
     } catch (e) {
       rethrow;

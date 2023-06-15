@@ -40,7 +40,7 @@ abstract class HttpService {
         return result.data;
       }
       throw errFailedToParseResponeData;
-    } on DioExceptionType catch (e) {
+    } on DioError catch (e) {
       throw _errorHandling(e);
     } catch (e) {
       rethrow;
@@ -52,7 +52,7 @@ abstract class HttpService {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
         baseUrl: host,
-        connectTimeout: const Duration(milliseconds: 3000),
+        connectTimeout: const Duration(seconds: 3000),
         receiveTimeout: const Duration(milliseconds: 3000),
         method: "POST",
         headers: {
@@ -73,7 +73,7 @@ abstract class HttpService {
         throw HttpError(message: result.message ?? "Failed to post data");
       }
       return result;
-    } on DioExceptionType catch (e) {
+    } on DioError catch (e) {
       throw _errorHandling(e);
     } catch (e) {
       rethrow;
@@ -106,15 +106,15 @@ abstract class HttpService {
         throw HttpError(message: result.message ?? "Failed to post data");
       }
       return result;
-    } on DioExceptionType catch (e) {
+    } on DioError catch (e) {
       throw _errorHandling(e);
     } catch (e) {
       rethrow;
     }
   }
 
-  Errors _errorHandling(DioExceptionType error) {
-    return _map[DioExceptionType] ??
+  Errors _errorHandling(DioError error) {
+    return _map[error.type] ??
         const HttpError(message: 'Tidak terdeteksi adanya koneksi');
   }
 }

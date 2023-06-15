@@ -32,6 +32,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: TextInput(
               sStream: blocLogin.email,
+              keyboardType: TextInputType.emailAddress,
               label: 'Email',
               hint: 'Masukkan Email',
             ),
@@ -51,7 +52,13 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: CustomButton(
               textButton: 'Login',
-              onTap: () async {},
+              onTap: () async {
+                await blocLogin.login();
+                final snackBar = SnackBar(
+                  content: Text('Berhasil Login!!!'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
             ),
           ),
           Row(

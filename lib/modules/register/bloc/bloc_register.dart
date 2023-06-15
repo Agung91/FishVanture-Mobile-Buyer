@@ -39,7 +39,6 @@ class RegisterBloc {
           email: emailVal,
           password: passVal,
           applicationType: 'buyer',
-          status: true,
         ),
       );
     } catch (e) {

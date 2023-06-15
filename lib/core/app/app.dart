@@ -19,12 +19,12 @@ class App extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RouteToPage(
-              pageName: 'Login Page',
-              page: const LoginPage(),
-            ),
-            RouteToPage(
               pageName: 'Register Page',
               page: const RegisterPage(),
+            ),
+            RouteToPage(
+              pageName: 'Login Page',
+              page: const LoginPage(),
             ),
           ],
         ),

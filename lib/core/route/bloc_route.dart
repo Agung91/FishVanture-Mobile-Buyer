@@ -42,8 +42,8 @@ class RouteBloc extends Authenticated {
 
   final _auth = AuthBloc();
   final List<RoutePage> _currentPages =
-      // List<RoutePage>.filled(1, RouteHome(), growable: true);
       List<RoutePage>.filled(1, RouteHome(), growable: true);
+      // List<RoutePage>.filled(1, RouteHome(), growable: true);
 
   final _pageController = SStream<List<RoutePage>>([]);
   SStream<List<RoutePage>> get pages => _pageController; //state
