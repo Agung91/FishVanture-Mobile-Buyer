@@ -2,6 +2,8 @@ import 'package:app/common/widgets/button.dart';
 import 'package:app/common/widgets/text_input.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/modules/login/bloc/bloc_login.dart';
+import 'package:app/modules/login/repo/repo_login.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocLogin = LoginBLoc(LoginRepo());
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -25,17 +28,19 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 48),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: TextInput(
+              sStream: blocLogin.email,
               label: 'Email',
               hint: 'Masukkan Email',
             ),
           ),
           const SizedBox(height: 26),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: TextInput(
+              sStream: blocLogin.password,
               label: 'Password',
               hint: 'Masukkan Password',
               obscureText: true,

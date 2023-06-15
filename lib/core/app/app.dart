@@ -1,3 +1,4 @@
+import 'package:app/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/modules/login/screen/page_login.dart';
@@ -20,7 +21,11 @@ class App extends StatelessWidget {
             RouteToPage(
               pageName: 'Login Page',
               page: const LoginPage(),
-            )
+            ),
+            RouteToPage(
+              pageName: 'Register Page',
+              page: const RegisterPage(),
+            ),
           ],
         ),
       ),
