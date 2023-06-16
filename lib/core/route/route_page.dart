@@ -1,3 +1,4 @@
+import 'package:app/core/app/app.dart';
 import 'package:app/modules/home/screen/page_home.dart';
 import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/register/screen/page_register.dart';
@@ -8,6 +9,14 @@ abstract class RoutePage {
   final bool isProtected;
   final String name;
   RoutePage(this.page, this.name, {this.isProtected = false});
+}
+
+class RouteUiPage extends RoutePage {
+  RouteUiPage()
+      : super(
+          const MaterialPage(child: UiPage()),
+          'UI PAGE',
+        );
 }
 
 class RouteLogin extends RoutePage {
