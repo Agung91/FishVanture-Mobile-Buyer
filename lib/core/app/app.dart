@@ -54,6 +54,7 @@ class AppPage extends StatelessWidget {
             if (data == null) {
               return Navigator(
                 key: _navigatorKey,
+                observers: [HeroController()],
                 pages: const [
                   MaterialPage(child: UiPage()),
                 ],
@@ -64,6 +65,7 @@ class AppPage extends StatelessWidget {
             }
             return Navigator(
               key: _navigatorKey,
+              observers: [HeroController()],
               pages: data.map((e) => e.page).toList(),
               onPopPage: (route, result) {
                 return route.didPop(result);
@@ -92,6 +94,10 @@ class UiPage extends StatelessWidget {
           RouteToPage(
             pageName: 'Login Page',
             page: RouteLogin(),
+          ),
+          RouteToPage(
+            pageName: 'Home Page',
+            page: RouteHome(),
           ),
         ],
       ),

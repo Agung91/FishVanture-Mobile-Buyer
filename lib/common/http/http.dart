@@ -52,7 +52,7 @@ abstract class HttpService {
       final token = AuthBloc().getToken();
       final options = BaseOptions(
         baseUrl: host,
-        connectTimeout: const Duration(seconds: 3000),
+        connectTimeout: const Duration(milliseconds: 3000),
         receiveTimeout: const Duration(milliseconds: 3000),
         method: "POST",
         headers: {
