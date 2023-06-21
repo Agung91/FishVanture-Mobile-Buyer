@@ -96,8 +96,8 @@ class UiPage extends StatelessWidget {
             page: RouteLogin(),
           ),
           RouteToPage(
-            pageName: 'Home Page',
-            page: RouteHome(),
+            pageName: 'Dashboard Page',
+            page: RouteDashboard(),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:app/core/app/app.dart';
+import 'package:app/modules/dashboard/screen/page_dashboard.dart';
 import 'package:app/modules/home/screen/page_home.dart';
 import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/register/screen/page_register.dart';
@@ -35,10 +36,10 @@ class RouteRegister extends RoutePage {
         );
 }
 
-class RouteHome extends RoutePage {
-  RouteHome()
+class RouteDashboard extends RoutePage {
+  RouteDashboard()
       : super(
-          const MaterialPage(child: HomePage()),
+          const MaterialPage(child: DashboardPage()),
           'home',
         );
 }
