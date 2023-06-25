@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
 import 'package:app/modules/home/screen/page_home.dart';
+import 'package:app/modules/orders/screen/page_order.dart';
+import 'package:app/modules/profile/screen/page_profile.dart';
+import 'package:app/modules/schedule/screen/page_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -14,10 +17,10 @@ class DashboardPage extends StatefulWidget {
 }
 
 final screens = [
-  HomePage(),
-  HomePage(),
-  HomePage(),
-  HomePage(),
+  const HomePage(),
+  const SchedulePage(),
+  const OrderPage(),
+  const ProfilePage(),
 ];
 
 int selectedIndex = 0;

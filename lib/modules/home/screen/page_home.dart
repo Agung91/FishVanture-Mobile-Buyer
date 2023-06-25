@@ -1,5 +1,6 @@
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/modules/home/widget/corousel.dart';
 import 'package:app/modules/home/widget/w_card.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,9 @@ class HomePage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: 30),
-            Container(
-              height: 184,
-              color: CustomColor.white,
-            ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 24),
+            HomeCorousel(),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
@@ -60,7 +58,7 @@ class HomePage extends StatelessWidget {
                 itemCount: 5,
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Row(
