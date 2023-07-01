@@ -13,6 +13,7 @@ class CustomColor {
   static const Color fadedGrey = Color(0xffB4B4B4); // Neutral / 70
 
   static const Color blue = Color(0xff285698);
+  static const Color fadedBlue = Color(0xffF3F9FF);
 
   static const Color white = Color(0xFFFFFFFF);
 
