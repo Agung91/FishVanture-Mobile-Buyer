@@ -1,9 +1,13 @@
+import 'package:app/core/auth/bloc/local_auth.dart';
+import 'package:app/modules/profile/bloc/bloc_profile.dart';
+import 'package:app/modules/profile/repo/repo_profile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/core/route/bloc_route.dart';
 import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/register/screen/page_register.dart';
+import 'package:provider/provider.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -19,14 +23,25 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Aplikasi',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider(
+          create: (_) => LocalAuth(),
+          lazy: false,
+        ),
+        Provider(
+          create: (_) => ProfileBloc(ProfileHttpRepo()),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Aplikasi',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        navigatorObservers: [routeObserver],
+        // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: AppPage(navigatorKey: _navigatorKey),
       ),
-      navigatorObservers: [routeObserver],
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: AppPage(navigatorKey: _navigatorKey),
     );
   }
 }
