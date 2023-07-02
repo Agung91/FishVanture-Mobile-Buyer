@@ -12,13 +12,13 @@ abstract class RoutePage {
   RoutePage(this.page, this.name, {this.isProtected = false});
 }
 
-class RouteUiPage extends RoutePage {
-  RouteUiPage()
-      : super(
-          const MaterialPage(child: UiPage()),
-          'UI PAGE',
-        );
-}
+// class RouteUiPage extends RoutePage {
+//   RouteUiPage()
+//       : super(
+//           const MaterialPage(child: UiPage()),
+//           'UI PAGE',
+//         );
+// }
 
 class RouteLogin extends RoutePage {
   RouteLogin()

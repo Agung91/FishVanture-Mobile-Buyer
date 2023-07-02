@@ -14,7 +14,6 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-
 class _AppState extends State<App> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -57,7 +56,7 @@ class AppPage extends StatelessWidget {
                 key: _navigatorKey,
                 observers: [HeroController()],
                 pages: const [
-                  MaterialPage(child: UiPage()),
+                  MaterialPage(child: LoginPage()),
                 ],
                 onPopPage: (route, result) {
                   return route.didPop(result);
@@ -77,55 +76,55 @@ class AppPage extends StatelessWidget {
   }
 }
 
-class UiPage extends StatelessWidget {
-  const UiPage({
-    super.key,
-  });
+// class UiPage extends StatelessWidget {
+//   const UiPage({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RouteToPage(
-            pageName: 'Register Page',
-            page: RouteRegister(),
-          ),
-          RouteToPage(
-            pageName: 'Login Page',
-            page: RouteLogin(),
-          ),
-          RouteToPage(
-            pageName: 'Dashboard Page',
-            page: RouteDashboard(),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           RouteToPage(
+//             pageName: 'Register Page',
+//             page: RouteRegister(),
+//           ),
+//           RouteToPage(
+//             pageName: 'Login Page',
+//             page: RouteLogin(),
+//           ),
+//           RouteToPage(
+//             pageName: 'Dashboard Page',
+//             page: RouteDashboard(),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class RouteToPage extends StatelessWidget {
-  const RouteToPage({
-    Key? key,
-    required this.pageName,
-    required this.page,
-  }) : super(key: key);
+// class RouteToPage extends StatelessWidget {
+//   const RouteToPage({
+//     Key? key,
+//     required this.pageName,
+//     required this.page,
+//   }) : super(key: key);
 
-  final String pageName;
-  final RoutePage page;
+//   final String pageName;
+//   final RoutePage page;
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      // onTap: () {},
-      onTap: () => RouteBloc().push(page),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Center(child: Text(pageName)),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       // onTap: () {},
+//       onTap: () => RouteBloc().push(page),
+//       child: Container(
+//         width: double.infinity,
+//         padding: const EdgeInsets.symmetric(vertical: 20),
+//         child: Center(child: Text(pageName)),
+//       ),
+//     );
+//   }
+// }
