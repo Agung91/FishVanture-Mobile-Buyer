@@ -20,8 +20,7 @@ class RouteBloc extends Authenticated {
 
   @override
   Future<void> onLogin() async {
-    // _pageController.add([RouteHome()]);
-    pop();
+    _pageController.add([RouteDashboard()]);
   }
 
   @override

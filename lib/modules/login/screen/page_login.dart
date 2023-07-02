@@ -2,6 +2,8 @@ import 'package:app/common/widgets/button.dart';
 import 'package:app/common/widgets/text_input.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/core/route/bloc_route.dart';
+import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/login/bloc/bloc_login.dart';
 import 'package:app/modules/login/repo/repo_login.dart';
 import 'package:flutter/foundation.dart';
@@ -70,9 +72,7 @@ class LoginPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (kDebugMode) {
-                    print('Daftar');
-                  }
+                  RouteBloc().push(RouteRegister());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(

@@ -12,7 +12,7 @@ class RegisterBloc {
   final password = "".stream;
   final konfirmPassword = "".stream;
 
-  Future<void> regisiter() async {
+  Future<void> register() async {
     try {
       final nameVal = name.value;
       if (nameVal == '') {

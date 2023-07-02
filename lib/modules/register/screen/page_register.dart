@@ -75,12 +75,12 @@ class RegisterPage extends StatelessWidget {
               child: CustomButton(
                 textButton: 'Daftar',
                 onTap: () async {
-                  // await blocRegister.regisiter();
-                  // final snackBar = SnackBar(
-                  //   content: Text('Berhasil!!!'),
-                  // );
-                  RouteBloc().push(RouteLogin());
-                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  await blocRegister.register();
+                  final snackBar = SnackBar(
+                    content: Text('Berhasil!!!'),
+                  );
+                  RouteBloc().pop();
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
             ),
