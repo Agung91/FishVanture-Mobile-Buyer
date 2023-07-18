@@ -1,3 +1,4 @@
+import 'package:app/common/widgets/appbar.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
 import 'package:app/modules/schedule/screen/page_schedule.dart';
@@ -26,7 +27,7 @@ class OrderPage extends StatelessWidget {
                 unselectedLabelColor: CustomColor.fadedGrey,
                 labelColor: CustomColor.primary,
                 tabs: [
-                  Text('Aktif'),
+                  Text('Berlangsung'),
                   Text('Selesai'),
                 ],
               ),
@@ -99,7 +100,7 @@ class ItemOrder extends StatelessWidget {
             child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Text(
-                  'Aktif',
+                  'Sedang Proses',
                   style: CustomTextStyle.body3Regular.copyWith(
                     color: CustomColor.primary,
                   ),

@@ -107,14 +107,16 @@ class _CustomButtonState extends State<CustomButton> {
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: _bordeRadius,
-            gradient: const LinearGradient(
-              colors: [
-                CustomColor.primary,
-                CustomColor.secondary,
-              ],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            )),
+            gradient: widget.isPrimary
+                ? const LinearGradient(
+                    colors: [
+                      CustomColor.primary,
+                      CustomColor.secondary,
+                    ],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.topLeft,
+                  )
+                : null),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

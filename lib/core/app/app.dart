@@ -34,7 +34,7 @@ class _AppState extends State<App> {
         ),
       ],
       child: MaterialApp(
-        title: 'Aplikasi',
+        title: 'Fish Venture',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -90,56 +90,3 @@ class AppPage extends StatelessWidget {
     );
   }
 }
-
-// class UiPage extends StatelessWidget {
-//   const UiPage({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           RouteToPage(
-//             pageName: 'Register Page',
-//             page: RouteRegister(),
-//           ),
-//           RouteToPage(
-//             pageName: 'Login Page',
-//             page: RouteLogin(),
-//           ),
-//           RouteToPage(
-//             pageName: 'Dashboard Page',
-//             page: RouteDashboard(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class RouteToPage extends StatelessWidget {
-//   const RouteToPage({
-//     Key? key,
-//     required this.pageName,
-//     required this.page,
-//   }) : super(key: key);
-
-//   final String pageName;
-//   final RoutePage page;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       // onTap: () {},
-//       onTap: () => RouteBloc().push(page),
-//       child: Container(
-//         width: double.infinity,
-//         padding: const EdgeInsets.symmetric(vertical: 20),
-//         child: Center(child: Text(pageName)),
-//       ),
-//     );
-//   }
-// }
