@@ -26,9 +26,14 @@ class ProfilePage extends StatelessWidget {
                 }
                 return SizedBox(
                   height: 276,
+                  width: double.infinity,
                   child: Stack(
                     children: [
-                      Image.asset('assets/bg_profile.png'),
+                      Image.asset(
+                        'assets/bg_profile.png',
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                      ),
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,8 +41,9 @@ class ProfilePage extends StatelessWidget {
                             CircleAvatar(
                               radius: 59,
                               backgroundColor: CustomColor.grey,
-                              backgroundImage:
-                                  AssetImage('assets/default_profile.png'),
+                              backgroundImage: AssetImage(
+                                'assets/default_profile.png',
+                              ),
                             ),
                             SizedBox(height: 14),
                             Text(
