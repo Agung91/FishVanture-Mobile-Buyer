@@ -35,7 +35,7 @@ class LoginBLoc {
           applicationType: 'buyer',
         ),
       );
-      AuthBloc().raise(EventAuthLogin(token));  
+      AuthBloc().raise(EventAuthLogin(token));
     } catch (e) {
       rethrow;
     }

@@ -12,6 +12,13 @@ class RegisterBloc {
   final password = "".stream;
   final konfirmPassword = "".stream;
 
+  void makeEmpty() {
+    name.add('');
+    email.add('');
+    password.add('');
+    konfirmPassword.add('');
+  }
+
   Future<void> register() async {
     try {
       final nameVal = name.value;
@@ -41,6 +48,7 @@ class RegisterBloc {
           applicationType: 'buyer',
         ),
       );
+      makeEmpty();
     } catch (e) {
       rethrow;
     }
