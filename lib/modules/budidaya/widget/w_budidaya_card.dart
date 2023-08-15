@@ -8,7 +8,6 @@ import 'package:app/config/text_style.dart';
 import 'package:app/core/route/bloc_route.dart';
 import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/budidaya/model/model_budidaya.dart';
-import 'package:app/modules/pond/model/model_pond.dart';
 
 class WBudidayaCard extends StatelessWidget {
   const WBudidayaCard({
@@ -32,11 +31,14 @@ class WBudidayaCard extends StatelessWidget {
     final waktuPanen = _daysBetween(
         budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
-      // onTap: () => RouteBloc().push(RoutePond(pondModel)),
-
+      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya)),
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: CustomColors.white,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,12 +49,12 @@ class WBudidayaCard extends StatelessWidget {
                 child: FadeInImage(
                   height: 118,
                   fit: BoxFit.cover,
-                  placeholder: AssetImage('assets/load_img.png'),
+                  placeholder: const AssetImage('assets/load_img.png'),
                   image: CachedNetworkImageProvider(budidaya.pool.image),
                 ),
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
@@ -60,23 +62,23 @@ class WBudidayaCard extends StatelessWidget {
                 style: CustomTextStyle.body2SemiBold,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               price ?? '',
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Icon(
+                const Icon(
                   IconlyBold.time_circle,
                   size: 16,
                   color: CustomColors.primary,
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
                   '$waktuPanen Hari',
                   style: CustomTextStyle.body2Medium.copyWith(
@@ -86,10 +88,6 @@ class WBudidayaCard extends StatelessWidget {
               ],
             )
           ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: CustomColors.white,
         ),
       ),
     );

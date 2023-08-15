@@ -1,4 +1,6 @@
 import 'package:app/core/app/app.dart';
+import 'package:app/modules/budidaya/model/model_budidaya.dart';
+import 'package:app/modules/budidaya/screen/page_detail_budidaya.dart';
 import 'package:app/modules/dashboard/screen/page_dashboard.dart';
 import 'package:app/modules/home/screen/page_home.dart';
 import 'package:app/modules/login/screen/page_login.dart';
@@ -54,5 +56,16 @@ class RoutePond extends RoutePage {
             pondModel: pondModel,
           )),
           'pond',
+        );
+}
+
+class RouteDetailBudidaya extends RoutePage {
+  RouteDetailBudidaya(BudidayaModel budidaya)
+      : super(
+          MaterialPage(
+              child: DetailBudidayaPage(
+            budidaya: budidaya,
+          )),
+          'detail-budidaya',
         );
 }

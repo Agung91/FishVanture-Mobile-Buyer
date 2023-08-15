@@ -47,7 +47,7 @@ class PondPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 _WBudidaya(),
                 const SizedBox(height: 16),
-                _WActionButton(pondModel: pondModel),
+                // _WActionButton(pondModel: pondModel),
               ],
             ),
           ),
@@ -81,34 +81,7 @@ class _WActionButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: CustomColors.red),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    // blocPond.updatePondDisabled(pondModel.id).then((value) =>
-                    //     snacBarPopUp(context,
-                    //         color: CustomColors.green,
-                    //         icon: IconlyBold.tick_square,
-                    //         text: 'Berhasil menolak budidaya'));
-                    // RouteBloc().pop();
-                  },
-                  child: Text(
-                    'Tolak',
-                    style: CustomTextStyle.body2Medium
-                        .copyWith(color: CustomColors.red),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
               Expanded(
                 child: TextButton(
                   style: ButtonStyle(
@@ -251,14 +224,20 @@ class _WName extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              pondModel.name.toUpperCase(),
-              style: CustomTextStyle.heading5Medium,
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  pondModel.name.toUpperCase(),
+                  style: CustomTextStyle.heading5Medium,
+                ),
+              ),
             ),
           ),
-          CircleAvatar(
+          const SizedBox(width: 16),
+          const CircleAvatar(
             radius: 24,
             backgroundColor: CustomColors.grey,
             backgroundImage: AssetImage(
@@ -307,71 +286,6 @@ class _WImage extends StatelessWidget {
     );
   }
 }
-
-// class _WBudidayaCard extends StatelessWidget {
-//   const _WBudidayaCard({
-//     Key? key,
-//     required this.budidaya,
-//   }) : super(key: key);
-
-//   final BudidayaModel budidaya;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 200,
-//       // height: 120,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(12.0),
-//         color: CustomColors.white,
-//         boxShadow: const [
-//           BoxShadow(
-//               blurRadius: 8,
-//               color: CustomColors.fadedGrey,
-//               offset: Offset(2, 2)),
-//         ],
-//       ),
-//       padding: const EdgeInsets.all(8),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           ClipRRect(
-//             borderRadius: BorderRadius.circular(6),
-//             child: FadeInImage(
-//               height: 120,
-//               width: 200,
-//               fit: BoxFit.cover,
-//               placeholder: const AssetImage('assets/load_img.png'),
-//               image: CachedNetworkImageProvider(budidaya.pool.image),
-//             ),
-//           ),
-//           const SizedBox(height: 12.0),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 8),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   budidaya.pool.name,
-//                   style: CustomTextStyle.body2SemiBold,
-//                 ),
-//                 const SizedBox(height: 6),
-//                 FittedBox(
-//                   fit: BoxFit.scaleDown,
-//                   child: Text(
-//                     '${budidaya.pool.long}m x ${budidaya.pool.wide}m',
-//                     style: CustomTextStyle.body2Medium,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class _BackButton extends StatelessWidget {
   const _BackButton({
