@@ -29,16 +29,16 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColor.background,
+      backgroundColor: CustomColors.background,
       body: screens[selectedIndex],
       bottomNavigationBar: Container(
-        color: CustomColor.white,
+        color: CustomColors.white,
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: BottomNavigationBar(
           elevation: 0,
-          backgroundColor: CustomColor.white,
+          backgroundColor: CustomColors.white,
           currentIndex: selectedIndex,
-          unselectedItemColor: CustomColor.fadedGrey,
+          unselectedItemColor: CustomColors.fadedGrey,
           selectedLabelStyle: CustomTextStyle.body2Medium,
           iconSize: 24.0,
           showUnselectedLabels: true,
@@ -50,10 +50,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 shaderCallback: (Rect bounds) {
                   return RadialGradient(
                     center: Alignment.bottomRight,
-                    radius: 1,
+                    radius: 1,  
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
@@ -70,8 +70,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     center: Alignment.bottomRight,
                     radius: 1,
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
@@ -88,8 +88,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     center: Alignment.bottomRight,
                     radius: 1,
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
@@ -106,8 +106,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     center: Alignment.bottomRight,
                     radius: 1,
                     colors: [
-                      CustomColor.primary,
-                      CustomColor.white,
+                      CustomColors.primary,
+                      CustomColors.white,
                     ],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);

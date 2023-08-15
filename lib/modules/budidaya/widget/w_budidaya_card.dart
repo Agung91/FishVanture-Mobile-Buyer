@@ -1,20 +1,22 @@
-import 'package:app/core/route/bloc_route.dart';
-import 'package:app/core/route/route_page.dart';
+import 'package:app/common/custom/format_number.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/core/route/bloc_route.dart';
+import 'package:app/core/route/route_page.dart';
+import 'package:app/modules/budidaya/model/model_budidaya.dart';
 import 'package:app/modules/pond/model/model_pond.dart';
 
-class WCard extends StatelessWidget {
-  const WCard({
+class WBudidayaCard extends StatelessWidget {
+  const WBudidayaCard({
     Key? key,
-    required this.pondModel,
+    required this.budidaya,
   }) : super(key: key);
 
-  final PondModel pondModel;
+  final BudidayaModel budidaya;
 
   int _daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
@@ -24,11 +26,17 @@ class WCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final price = (budidaya.priceList?.first.price != null)
+        ? budidaya.priceList?.first.price?.toIdr()
+        : '';
+    final waktuPanen = _daysBetween(
+        budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
-      onTap: () => RouteBloc().push(RoutePond(pondModel)),
+      // onTap: () => RouteBloc().push(RoutePond(pondModel)),
+
       child: Container(
         padding: const EdgeInsets.all(6.0),
-        width: 168,
+        width: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,7 +48,7 @@ class WCard extends StatelessWidget {
                   height: 118,
                   fit: BoxFit.cover,
                   placeholder: AssetImage('assets/load_img.png'),
-                  image: CachedNetworkImageProvider(pondModel.image),
+                  image: CachedNetworkImageProvider(budidaya.pool.image),
                 ),
               ),
             ),
@@ -48,13 +56,13 @@ class WCard extends StatelessWidget {
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                pondModel.name.toUpperCase(),
+                budidaya.pool.name.toUpperCase(),
                 style: CustomTextStyle.body2SemiBold,
               ),
             ),
             SizedBox(height: 4),
             Text(
-              'Desa ${pondModel.district.name}, Kec. ${pondModel.district.name} - ${pondModel.city.name}',
+              price ?? '',
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
@@ -70,7 +78,7 @@ class WCard extends StatelessWidget {
                 ),
                 SizedBox(width: 4),
                 Text(
-                  '123 Hari',
+                  '$waktuPanen Hari',
                   style: CustomTextStyle.body2Medium.copyWith(
                     color: CustomColors.primary,
                   ),

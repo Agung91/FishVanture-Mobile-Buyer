@@ -1,4 +1,8 @@
 import 'package:app/core/auth/bloc/local_auth.dart';
+import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
+import 'package:app/modules/budidaya/repo/repo_budidaya.dart';
+import 'package:app/modules/pond/bloc/bloc_pond.dart';
+import 'package:app/modules/pond/repo/repo_pond.dart';
 import 'package:app/modules/profile/bloc/bloc_profile.dart';
 import 'package:app/modules/profile/repo/repo_profile.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +35,12 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => ProfileBloc(ProfileHttpRepo()),
+        ),
+        Provider(
+          create: (_) => BudidayaBloc(BudidayaHttpRepo()),
+        ),
+        Provider(
+          create: (_) => PondBloc(PondHttpRepo()),
         ),
       ],
       child: MaterialApp(

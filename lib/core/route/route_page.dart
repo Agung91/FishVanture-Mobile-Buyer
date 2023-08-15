@@ -2,6 +2,8 @@ import 'package:app/core/app/app.dart';
 import 'package:app/modules/dashboard/screen/page_dashboard.dart';
 import 'package:app/modules/home/screen/page_home.dart';
 import 'package:app/modules/login/screen/page_login.dart';
+import 'package:app/modules/pond/model/model_pond.dart';
+import 'package:app/modules/pond/screen/page_pond.dart';
 import 'package:app/modules/register/screen/page_register.dart';
 import 'package:flutter/material.dart';
 
@@ -41,5 +43,16 @@ class RouteDashboard extends RoutePage {
       : super(
           const MaterialPage(child: DashboardPage()),
           'home',
+        );
+}
+
+class RoutePond extends RoutePage {
+  RoutePond(PondModel pondModel)
+      : super(
+          MaterialPage(
+              child: PondPage(
+            pondModel: pondModel,
+          )),
+          'pond',
         );
 }

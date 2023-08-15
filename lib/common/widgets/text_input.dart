@@ -54,13 +54,13 @@ class _TextInputState extends State<TextInput> {
             final err = snapshot.error as Errors?;
             return TextField(
               style: CustomTextStyle.body2Regular.copyWith(
-                color: CustomColor.dark,
+                color: CustomColors.dark,
               ),
               controller: _controller,
               onChanged: widget.sStream?.add,
               obscureText: (widget.obscureText ?? false) && _obsecureText,
               cursorWidth: 1.5,
-              cursorColor: CustomColor.primary,
+              cursorColor: CustomColors.primary,
               keyboardType: widget.keyboardType,
               decoration: CustomBorder.border.copyWith(
                 hintText: widget.hint,
