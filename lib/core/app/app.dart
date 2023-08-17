@@ -5,12 +5,14 @@ import 'package:app/modules/pond/bloc/bloc_pond.dart';
 import 'package:app/modules/pond/repo/repo_pond.dart';
 import 'package:app/modules/profile/bloc/bloc_profile.dart';
 import 'package:app/modules/profile/repo/repo_profile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/core/route/bloc_route.dart';
 import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/register/screen/page_register.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
@@ -24,6 +26,26 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  Future<void> checkForUpdate() async {
+    if (kDebugMode) {
+      return;
+    }
+    InAppUpdate.checkForUpdate().then((info) {
+      if (info.updateAvailability != 0) {
+        InAppUpdate.performImmediateUpdate();
+      }
+    }).catchError((e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
+  }
 
   @override
   Widget build(BuildContext context) {
