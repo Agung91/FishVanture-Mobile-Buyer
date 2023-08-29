@@ -131,8 +131,8 @@ class PondModel {
       'longitude': longitude,
       'teamID': teamID,
       'image': image,
-      'listPool': listPool?.map((x) => x?.toMap())?.toList(),
-      'berkas': berkas?.map((x) => x?.toMap())?.toList(),
+      'listPool': listPool?.map((x) => x.toMap()).toList(),
+      'berkas': berkas?.map((x) => x.toMap()).toList(),
     };
   }
 

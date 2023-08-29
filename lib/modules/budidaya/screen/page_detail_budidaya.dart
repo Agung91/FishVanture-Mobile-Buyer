@@ -1,17 +1,11 @@
-import 'package:app/core/route/bloc_route.dart';
-import 'package:app/modules/budidaya/model/model_budidaya.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:provider/provider.dart';
 
-import 'package:app/common/custom/launch_url.dart';
-import 'package:app/common/model/model_status.dart';
 import 'package:app/common/widgets/appbar.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
-import 'package:app/modules/pond/bloc/bloc_pond.dart';
-import 'package:app/modules/pond/model/model_pond.dart';
+import 'package:app/modules/budidaya/model/model_budidaya.dart';
 
 class DetailBudidayaPage extends StatelessWidget {
   const DetailBudidayaPage({
@@ -25,7 +19,7 @@ class DetailBudidayaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.background,
-      appBar: const CustomAppbar(appbarText: 'Detail Pengajuan'),
+      appBar: const CustomAppbar(appbarText: 'Detail Budidaya'),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -38,9 +32,9 @@ class DetailBudidayaPage extends StatelessWidget {
             // const SizedBox(height: 12),
             // _WAddress(pondModel: budidaya),
             const SizedBox(height: 16),
-            if (budidaya.status == StatusSubmission.submission ||
-                budidaya.status == StatusSubmission.reviewed)
-              _WActionButton(),
+            // if (budidaya.status == StatusSubmission.submission ||
+            //     budidaya.status == StatusSubmission.reviewed)
+            _WActionButton(),
           ],
         ),
       ),

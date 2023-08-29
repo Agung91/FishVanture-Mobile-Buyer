@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 24),
-            HomeCorousel(),
+            const HomeCorousel(),
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
                         'Lihat Semua',
                         style: CustomTextStyle.body2SemiBold.copyWith(
@@ -169,7 +169,7 @@ class _AppbarHome extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               // Icon(IconlyLight.arrow_left),
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 20,
                 backgroundColor: CustomColors.grey,
                 backgroundImage: AssetImage('assets/default_profile.png'),

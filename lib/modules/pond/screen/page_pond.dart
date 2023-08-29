@@ -17,6 +17,8 @@ import 'package:app/config/text_style.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
 import 'package:app/modules/pond/model/model_pond.dart';
 
+// MEMBUAT BUDIDAYA BARU DARI SELLER, KARENA DATANYA BANYAK YANG NGAWUR WKWK
+
 class PondPage extends StatelessWidget {
   const PondPage({
     Key? key,
@@ -34,7 +36,6 @@ class PondPage extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () => blocBudidaya.getListBudidaya(pondModel.id),
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,11 +306,11 @@ class _BackButton extends StatelessWidget {
           height: 40,
           width: 40,
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white30,
+            decoration: const BoxDecoration(
+              color: Colors.black12,
               shape: BoxShape.circle,
             ),
-            child: Icon(
+            child: const Icon(
               IconlyLight.arrow_left_2,
               size: 24,
               color: CustomColors.white,

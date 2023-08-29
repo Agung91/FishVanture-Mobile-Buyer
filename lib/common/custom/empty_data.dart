@@ -1,9 +1,5 @@
-
 import 'package:app/config/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
 
 class EmptyData extends StatelessWidget {
   const EmptyData({
@@ -35,6 +31,5 @@ class EmptyData extends StatelessWidget {
         );
       },
     );
-    ;
   }
 }
