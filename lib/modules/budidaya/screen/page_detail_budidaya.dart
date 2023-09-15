@@ -1,3 +1,6 @@
+import 'package:app/common/widgets/button.dart';
+import 'package:app/common/widgets/text_input.dart';
+import 'package:app/core/route/bloc_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -74,49 +77,65 @@ class _WActionButton extends StatelessWidget {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: CustomColors.red),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    // blocPond.updatePondDisabled(pondModel.id).then((value) =>
-                    //     snacBarPopUp(context,
-                    //         color: CustomColors.green,
-                    //         icon: IconlyBold.tick_square,
-                    //         text: 'Berhasil menolak budidaya'));
-                    // RouteBloc().pop();
-                  },
-                  child: Text(
-                    'Tolak',
-                    style: CustomTextStyle.body2Medium
-                        .copyWith(color: CustomColors.red),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
                         side: const BorderSide(color: CustomColors.primary),
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    // blocPond.updatePondActived(pondModel.id).then((value) =>
-                    //     snacBarPopUp(context,
-                    //         color: CustomColors.green,
-                    //         icon: IconlyBold.tick_square,
-                    //         text: 'Berhasil mengaktifkan budidaya'));
-                    // RouteBloc().pop();
-                  },
                   child: Text(
-                    'Terima',
+                    'Pesan',
                     style: CustomTextStyle.body2Medium
                         .copyWith(color: CustomColors.primary),
                   ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12))),
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 12),
+                              const Text(
+                                'Tambah Barang',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              const TextInput(label: 'Nama Barang'),
+                              const SizedBox(height: 12),
+                              const TextInput(label: 'Quantity'),
+                              const SizedBox(height: 12),
+                              const TextInput(label: 'Harga'),
+                              const SizedBox(height: 12),
+                              CustomButton(
+                                textButton: 'Submit',
+                                onTap: () async {
+                                  RouteBloc().pop();
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],

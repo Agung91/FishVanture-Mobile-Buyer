@@ -1,4 +1,5 @@
 import 'package:app/core/auth/bloc/local_auth.dart';
+import 'package:app/core/context.dart';
 import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:app/modules/budidaya/repo/repo_budidaya.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
@@ -67,6 +68,7 @@ class _AppState extends State<App> {
       ],
       child: MaterialApp(
         title: 'Fish Venture',
+        scaffoldMessengerKey: snackbarKey,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

@@ -1,3 +1,4 @@
+import 'package:app/common/custom/snackbar/snackbar_popup.dart';
 import 'package:app/common/widgets/button.dart';
 import 'package:app/common/widgets/text_input.dart';
 import 'package:app/config/colors.dart';
@@ -7,6 +8,7 @@ import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/register/bloc/bloc_register.dart';
 import 'package:app/modules/register/repo/repo_register.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -76,11 +78,11 @@ class RegisterPage extends StatelessWidget {
                 textButton: 'Daftar',
                 onTap: () async {
                   await blocRegister.register();
-                  final snackBar = SnackBar(
-                    content: Text('Berhasil!!!'),
+                  snacBarPopUp(
+                    message: 'Berhasil ',
+                    color: CustomColors.green,
+                    icon: Iconsax.tick_square5,
                   );
-                  RouteBloc().pop();
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
             ),

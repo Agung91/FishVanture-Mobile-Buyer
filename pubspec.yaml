@@ -45,6 +45,7 @@ dependencies:
 
   # Connection
   dio: ^5.2.1
+  connectivity_plus: ^4.0.2
 
   # Icon
   iconsax: ^0.0.8

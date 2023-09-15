@@ -1,19 +1,15 @@
-import 'package:app/common/custom/snackbar/snackbar_popup.dart';
-import 'package:app/common/widgets/appbar.dart';
-import 'package:app/core/route/bloc_route.dart';
-import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
-import 'package:app/modules/budidaya/model/model_budidaya.dart';
-import 'package:app/modules/budidaya/widget/w_budidaya_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/common/custom/launch_url.dart';
-import 'package:app/common/model/model_status.dart';
-import 'package:app/common/widgets/appbar_home.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/core/route/bloc_route.dart';
+import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
+import 'package:app/modules/budidaya/model/model_budidaya.dart';
+import 'package:app/modules/budidaya/widget/w_budidaya_card.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
 import 'package:app/modules/pond/model/model_pond.dart';
 
@@ -34,7 +30,7 @@ class PondPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: RefreshIndicator(
-        onRefresh: () => blocBudidaya.getListBudidaya(pondModel.id),
+        onRefresh: () async => await blocBudidaya.getListBudidaya(pondModel.id),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
@@ -142,7 +138,7 @@ class _WBudidaya extends StatelessWidget {
                 builder: (context, snapshot) {
                   final listData = snapshot.data;
                   if (listData == null || listData.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text(
                         'Belum ada budidaya',
                       ),
@@ -198,8 +194,7 @@ class _WAddress extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                '${pondModel.noteAddress} || ${pondModel.detailAddress}, Kecamatan ${pondModel.district.name}, ${pondModel.city.name}, ${pondModel.province.name} - ${pondModel.country.name} '
-                    .toUpperCase(),
+                '${pondModel.noteAddress} || ${pondModel.detailAddress}, Kecamatan ${pondModel.district.name}, ${pondModel.city.name}, ${pondModel.province.name} - ${pondModel.country.name} ',
                 style: CustomTextStyle.body1Regular,
               ),
             ),

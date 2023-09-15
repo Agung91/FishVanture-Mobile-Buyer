@@ -71,20 +71,28 @@ class WBudidayaCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Icon(
-                  IconlyBold.time_circle,
-                  size: 16,
-                  color: CustomColors.primary,
-                ),
-                const SizedBox(width: 4),
                 Text(
-                  '$waktuPanen Hari',
+                  budidaya.status.toUpperCase(),
                   style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColors.primary,
+                    color: CustomColors.grey,
                   ),
                 ),
+                const Spacer(),
+                if (budidaya.estPanenDate != null && waktuPanen >= 0) ...[
+                  const Icon(
+                    IconlyBold.time_circle,
+                    size: 16,
+                    color: CustomColors.primary,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '$waktuPanen Hari',
+                    style: CustomTextStyle.body2Medium.copyWith(
+                      color: CustomColors.primary,
+                    ),
+                  ),
+                ],
               ],
             )
           ],

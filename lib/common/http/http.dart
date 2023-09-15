@@ -1,11 +1,15 @@
+import 'package:app/common/connection/connection.dart';
+import 'package:app/common/custom/snackbar/snackbar_popup.dart';
 import 'package:app/common/errors/errors.dart';
 import 'package:app/common/http/error.dart';
 import 'package:app/common/http/res.dart';
 import 'package:app/common/http/status.dart';
+import 'package:app/config/colors.dart';
 // import 'package:app/common/models/paginations.dart';
 import 'package:app/config/hosts.dart';
 import 'package:app/core/auth/bloc/bloc_auth.dart';
 import 'package:dio/dio.dart';
+import 'package:iconsax/iconsax.dart';
 
 abstract class HttpService {
   final dio = Dio();
@@ -23,6 +27,15 @@ abstract class HttpService {
       },
     );
     try {
+      if (!NetworkState().isConnected) {
+        snacBarPopUp(
+          message: 'Tidak ada koneksi',
+          duration: 1600,
+          color: CustomColors.error,
+          icon: Iconsax.danger5,
+        );
+        throw 'Disconnect';
+      }
       final response = await Dio(options).get(
         path,
       );
@@ -60,6 +73,18 @@ abstract class HttpService {
           if (token != null) 'authorization': "Bearer ${token.token}",
         },
       );
+
+      // check connection
+      if (!NetworkState().isConnected) {
+        snacBarPopUp(
+          message: 'Tidak ada koneksi',
+          duration: 1600,
+          color: CustomColors.error,
+          icon: Iconsax.danger5,
+        );
+        throw 'Disconnect';
+      }
+
       final response = await Dio(options).post(
         path,
         data: body,

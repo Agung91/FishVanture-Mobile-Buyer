@@ -50,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 shaderCallback: (Rect bounds) {
                   return RadialGradient(
                     center: Alignment.bottomRight,
-                    radius: 1,  
+                    radius: 1,
                     colors: [
                       CustomColors.primary,
                       CustomColors.white,

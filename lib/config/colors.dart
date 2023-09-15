@@ -24,5 +24,6 @@ class CustomColors {
   static const Color fadedYellow = Color(0xffFFF7E8);
 
   static const Color red = Color(0xffCB3A31);
+  static const Color error = Color(0xffCB3A31);
   static const Color fadedRed = Color(0xffFFF7E8);
 }

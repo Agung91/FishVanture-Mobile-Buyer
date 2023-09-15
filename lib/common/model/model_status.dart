@@ -2,10 +2,10 @@ import 'package:app/config/colors.dart';
 import 'package:flutter/material.dart';
 
 class StatusSubmission {
-  static const submission = "submission";
-  static const reviewed = "reviewed";
-  static const actived = "actived";
-  static const disabled = "disabled";
+  static const submission = "tahap pengajuan";
+  static const reviewed = "sedang direview";
+  static const actived = "aktif";
+  static const disabled = "di tolak";
 
   static Color statusColor(String status) {
     return _mapStatus[status] ?? CustomColors.dark;
