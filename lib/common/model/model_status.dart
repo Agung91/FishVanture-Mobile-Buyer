@@ -30,3 +30,30 @@ class StatusSubmission {
     disabled: 'Maaf, formulir pengajuan Anda ditolak ',
   };
 }
+
+// class StatusOrder {
+//   static const active = 'active';
+//   static const cancel = 'cancel';
+//   static const success = 'success';
+
+//   static String statusOrder(String status) {
+//     return _mapStatusOrder[status] ?? '';
+//   }
+
+//   static const _mapStatusOrder = {
+//     active: 'Sedang Proses',
+//     cancel: 'Dibatalkan',
+//     success: 'Selesai',
+//   };
+
+//     static Color statusColor(String status) {
+//     return _mapStatus[status] ?? CustomColors.dark;
+//   }
+
+//   static const _mapStatus = {
+//     submission: CustomColors.grey,
+//     reviewed: CustomColors.yellow,
+//     actived: CustomColors.green,
+//     disabled: CustomColors.red,
+//   };
+// }

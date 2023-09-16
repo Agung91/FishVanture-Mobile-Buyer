@@ -34,7 +34,7 @@ class OrderInput {
     return OrderInput(
       budidayaID: map['budidayaID'] ?? '',
       qty: map['qty']?.toInt() ?? 0,
-      bookingDate: DateTime.parse(map['bookingDate']),
+      bookingDate: DateTime.parse(map['bookingDate']).toLocal(),
     );
   }
 

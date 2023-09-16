@@ -1,7 +1,11 @@
 import 'package:app/common/custom/empty_data.dart';
+import 'package:app/common/custom/format_number.dart';
+import 'package:app/common/widgets/button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/common/widgets/appbar_home.dart';
@@ -144,13 +148,16 @@ class _ItemOrder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'DRM00000123',
+                // 'DRM00000123',
+                orderModel.code,
                 style: CustomTextStyle.body2Medium.copyWith(
                   color: CustomColors.grey,
                 ),
               ),
               Text(
-                '17 November 2022 - 16:47 WIB',
+                // '17 November 2022 - 16:47 WIB',
+                DateFormat('EEEE, dd MMMM yyyy', 'id')
+                    .format(orderModel.createdAt),
                 style: CustomTextStyle.body3Regular.copyWith(
                   color: CustomColors.grey,
                 ),
@@ -162,15 +169,15 @@ class _ItemOrder extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: CustomColors.fadedBlue,
+                ),
                 child: Text(
                   'Sedang Proses',
                   style: CustomTextStyle.body3Regular.copyWith(
                     color: CustomColors.primary,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: CustomColors.fadedBlue,
                 )),
           ),
           const SizedBox(height: 16.0),
@@ -178,11 +185,12 @@ class _ItemOrder extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: const FadeInImage(
+                child: FadeInImage(
                   height: 60,
                   width: 80,
-                  placeholder: AssetImage('assets/load_img.png'),
-                  image: AssetImage('assets/ikan.png'),
+                  placeholder: const AssetImage('assets/load_img.png'),
+                  image: CachedNetworkImageProvider(
+                      orderModel.budidaya.pool.image),
                 ),
               ),
               const SizedBox(width: 12),
@@ -190,12 +198,13 @@ class _ItemOrder extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ikan Lele',
+                    orderModel.budidaya.fishSpecies.name.toUpperCase(),
                     style: CustomTextStyle.body2SemiBold,
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    '20 kg',
+                    // '20 kg',
+                    '${orderModel.qty} kg',
                     style: CustomTextStyle.body2Regular.copyWith(
                       color: CustomColors.grey,
                     ),
@@ -204,13 +213,23 @@ class _ItemOrder extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'Rp 2.600.000',
-                style: CustomTextStyle.body1SemiBold,
-              ))
+            alignment: Alignment.centerRight,
+            child: Text(
+              // 'Rp 2.600.000',
+              orderModel.ammout.toIdr(),
+              style: CustomTextStyle.body1SemiBold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          CustomButton(
+            borderColor: CustomColors.error,
+            textColor: CustomColors.error,
+            isPrimary: false,
+            textButton: 'Batalkan',
+            onTap: () async {},
+          )
         ],
       ),
     );

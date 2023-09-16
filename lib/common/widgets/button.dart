@@ -18,6 +18,8 @@ class CustomButton extends StatefulWidget {
     this.isDisabled = false,
     this.onSucced,
     this.onFailed,
+    this.borderColor,
+    this.textColor,
   }) : super(key: key);
 
   final bool isPrimary;
@@ -27,6 +29,8 @@ class CustomButton extends StatefulWidget {
   final dynamic Function() onTap;
   final IconData? suffixIcon;
   final bool isDisabled;
+  final Color? borderColor;
+  final Color? textColor;
 
   final Function()? onSucced;
   final Function(Errors)? onFailed;
@@ -106,6 +110,12 @@ class _CustomButtonState extends State<CustomButton> {
         height: widget.smallButton ? 32.0 : 43.0,
         width: double.infinity,
         decoration: BoxDecoration(
+            border: widget.isPrimary
+                ? null
+                : Border.all(
+                    width: 1,
+                    color: widget.borderColor ?? Colors.transparent,
+                  ),
             borderRadius: _bordeRadius,
             gradient: widget.isPrimary
                 ? const LinearGradient(
@@ -131,7 +141,7 @@ class _CustomButtonState extends State<CustomButton> {
                     style: TextStyle(
                       color: widget.isPrimary
                           ? CustomColors.white
-                          : CustomColors.primary,
+                          : widget.textColor ?? CustomColors.primary,
                       fontWeight: FontWeight.w600,
                       fontSize: widget.smallButton ? 10 : 12.0,
                       letterSpacing: 1.25 / 100 * 12,
@@ -177,6 +187,7 @@ class _DisabledButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         color: CustomColors.defaultBorder,
+        // color: CustomColors.dark,
       ),
       child: (suffixIcon != null)
           ? Row(

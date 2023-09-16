@@ -132,6 +132,7 @@ class OrderModel {
   final int price;
   final int ammout;
   final String status;
+  final DateTime createdAt;
   OrderModel({
     required this.id,
     required this.code,
@@ -144,8 +145,8 @@ class OrderModel {
     required this.price,
     required this.ammout,
     required this.status,
+    required this.createdAt,
   });
-// final String createdAt;
 
   OrderModel copyWith({
     String? id,
@@ -159,6 +160,7 @@ class OrderModel {
     int? price,
     int? ammout,
     String? status,
+    DateTime? createdAt,
   }) {
     return OrderModel(
       id: id ?? this.id,
@@ -172,6 +174,7 @@ class OrderModel {
       price: price ?? this.price,
       ammout: ammout ?? this.ammout,
       status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -182,12 +185,13 @@ class OrderModel {
       'budidayaID': budidayaID,
       'budidaya': budidaya.toMap(),
       'qty': qty,
-      'bookingDate': bookingDate.millisecondsSinceEpoch,
+      'bookingDate': bookingDate.toUtc().toIso8601String(),
       'pricelistID': pricelistID,
       'pricelist': pricelist,
       'price': price,
       'ammout': ammout,
       'status': status,
+      'createdAt': createdAt.toUtc().toIso8601String(),
     };
   }
 
@@ -198,12 +202,13 @@ class OrderModel {
       budidayaID: map['budidayaID'] ?? '',
       budidaya: BudidayaModel.fromMap(map['budidaya']),
       qty: map['qty']?.toInt() ?? 0,
-      bookingDate: DateTime.parse(map['bookingDate']),
+      bookingDate: DateTime.parse(map['bookingDate']).toLocal(),
       pricelistID: map['pricelistID'] ?? '',
       pricelist: map['pricelist'] ?? '',
       price: map['price']?.toInt() ?? 0,
       ammout: map['ammout']?.toInt() ?? 0,
       status: map['status'] ?? '',
+      createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );
   }
 
@@ -214,7 +219,7 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, code: $code, budidayaID: $budidayaID, budidaya: $budidaya, qty: $qty, bookingDate: $bookingDate, pricelistID: $pricelistID, pricelist: $pricelist, price: $price, ammout: $ammout, status: $status)';
+    return 'OrderModel(id: $id, code: $code, budidayaID: $budidayaID, budidaya: $budidaya, qty: $qty, bookingDate: $bookingDate, pricelistID: $pricelistID, pricelist: $pricelist, price: $price, ammout: $ammout, status: $status, createdAt: $createdAt)';
   }
 
   @override
@@ -232,7 +237,8 @@ class OrderModel {
         other.pricelist == pricelist &&
         other.price == price &&
         other.ammout == ammout &&
-        other.status == status;
+        other.status == status &&
+        other.createdAt == createdAt;
   }
 
   @override
@@ -247,6 +253,7 @@ class OrderModel {
         pricelist.hashCode ^
         price.hashCode ^
         ammout.hashCode ^
-        status.hashCode;
+        status.hashCode ^
+        createdAt.hashCode;
   }
 }
