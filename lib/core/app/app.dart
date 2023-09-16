@@ -1,20 +1,23 @@
+import 'package:app/modules/orders/bloc/bloc_order.dart';
+import 'package:app/modules/orders/repo/repo_order.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
+
 import 'package:app/core/auth/bloc/local_auth.dart';
 import 'package:app/core/context.dart';
+import 'package:app/core/route/bloc_route.dart';
+import 'package:app/core/route/route_page.dart';
 import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:app/modules/budidaya/repo/repo_budidaya.dart';
+import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
 import 'package:app/modules/pond/repo/repo_pond.dart';
 import 'package:app/modules/profile/bloc/bloc_profile.dart';
 import 'package:app/modules/profile/repo/repo_profile.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:app/core/route/bloc_route.dart';
-import 'package:app/core/route/route_page.dart';
-import 'package:app/modules/login/screen/page_login.dart';
 import 'package:app/modules/register/screen/page_register.dart';
-import 'package:in_app_update/in_app_update.dart';
-import 'package:provider/provider.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -46,6 +49,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     checkForUpdate();
+    initializeDateFormatting();
   }
 
   @override
@@ -64,6 +68,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => PondBloc(PondHttpRepo()),
+        ),
+        Provider(
+          create: (_) => OrderBloc(OrderHttpRepo()),
         ),
       ],
       child: MaterialApp(

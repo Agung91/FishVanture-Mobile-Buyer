@@ -4,8 +4,8 @@ class PriceListModel {
   final String? id;
   final String? budidayaID;
   final String? budidaya;
-  final int? limit;
-  final int? price;
+  final int limit;
+  final int price;
   PriceListModel({
     this.id,
     required this.budidayaID,
@@ -45,8 +45,8 @@ class PriceListModel {
       id: map['id'],
       budidayaID: map['budidayaID'],
       budidaya: map['budidaya'],
-      limit: map['limit']?.toInt(),
-      price: map['price']?.toInt(),
+      limit: map['limit']?.toInt() ?? 0,
+      price: map['price']?.toInt() ?? 0,
     );
   }
 

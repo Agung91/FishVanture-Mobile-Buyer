@@ -28,8 +28,7 @@ class WBudidayaCard extends StatelessWidget {
     final price = (budidaya.priceList?.first.price != null)
         ? budidaya.priceList?.first.price?.toIdr()
         : '-';
-    final waktuPanen = _daysBetween(
-        budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
+    final waktuPanen = _daysBetween(budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
       onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya)),
       child: Container(
@@ -58,13 +57,13 @@ class WBudidayaCard extends StatelessWidget {
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                budidaya.pool.name.toUpperCase(),
+                budidaya.fishSpecies.name.toUpperCase(),
                 style: CustomTextStyle.body2SemiBold,
               ),
             ),
             const SizedBox(height: 4),
             Text(
-              price ?? '',
+              price ?? '-',
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
@@ -72,27 +71,26 @@ class WBudidayaCard extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Text(
-                  budidaya.status.toUpperCase(),
-                  style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColors.grey,
-                  ),
-                ),
-                const Spacer(),
-                if (budidaya.estPanenDate != null && waktuPanen >= 0) ...[
-                  const Icon(
-                    IconlyBold.time_circle,
-                    size: 16,
-                    color: CustomColors.primary,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '$waktuPanen Hari',
+                Expanded(
+                  child: Text(
+                    budidaya.status.toUpperCase(),
                     style: CustomTextStyle.body2Medium.copyWith(
                       color: CustomColors.primary,
                     ),
                   ),
-                ],
+                ),
+                const Icon(
+                  IconlyBold.time_circle,
+                  size: 16,
+                  color: CustomColors.primary,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  '$waktuPanen Hari',
+                  style: CustomTextStyle.body2Medium.copyWith(
+                    color: CustomColors.primary,
+                  ),
+                ),
               ],
             )
           ],

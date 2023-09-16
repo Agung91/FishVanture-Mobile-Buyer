@@ -1,3 +1,4 @@
+import 'package:app/common/widgets/button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -48,6 +49,14 @@ class PondPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: CustomColors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        child: CustomButton(
+          textButton: 'Hubungi Penjual',
+          onTap: () async {},
         ),
       ),
     );

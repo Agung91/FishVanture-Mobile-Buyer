@@ -4,6 +4,7 @@ import 'package:app/modules/budidaya/screen/page_detail_budidaya.dart';
 import 'package:app/modules/dashboard/screen/page_dashboard.dart';
 import 'package:app/modules/home/screen/page_home.dart';
 import 'package:app/modules/login/screen/page_login.dart';
+import 'package:app/modules/orders/screen/page_order_process.dart';
 import 'package:app/modules/pond/model/model_pond.dart';
 import 'package:app/modules/pond/screen/page_pond.dart';
 import 'package:app/modules/register/screen/page_register.dart';
@@ -64,8 +65,19 @@ class RouteDetailBudidaya extends RoutePage {
       : super(
           MaterialPage(
               child: DetailBudidayaPage(
-            budidaya: budidaya,
+            budidayaModel: budidaya,
           )),
           'detail-budidaya',
+        );
+}
+
+class RouteOrderProcess extends RoutePage {
+  RouteOrderProcess(BudidayaModel budidayaModel)
+      : super(
+          MaterialPage(
+              child: OrderProcessPage(
+            budidayaModel: budidayaModel,
+          )),
+          'order-process',
         );
 }
