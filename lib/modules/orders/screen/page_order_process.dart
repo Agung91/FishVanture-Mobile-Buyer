@@ -68,7 +68,8 @@ class OrderProcessPage extends StatelessWidget {
                     width: 100,
                     fit: BoxFit.cover,
                     placeholder: const AssetImage('assets/load_img.png'),
-                    image: CachedNetworkImageProvider(budidayaModel.pool.image),
+                    image: CachedNetworkImageProvider(
+                        budidayaModel.pool?.image ?? ''),
                     imageErrorBuilder: (context, error, stackTrace) {
                       return const SizedBox(
                         height: 60,

@@ -1,10 +1,12 @@
 import 'package:app/common/widgets/appbar_home.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/modules/orders/bloc/bloc_order.dart';
 import 'package:app/modules/schedule/screen/page_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -15,14 +17,12 @@ class OrderPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         backgroundColor: CustomColors.background,
-        appBar: CustomAppbarHome(appbarText: 'Pesanan'),
+        appBar: const CustomAppbarHome(appbarText: 'Pesanan'),
         body: Column(
           children: [
             Container(
               color: CustomColors.white,
-              // height: 42,
-              // padding: EdgeInsets.all(12),
-              child: TabBar(
+              child: const TabBar(
                 labelPadding: EdgeInsets.all(12),
                 unselectedLabelColor: CustomColors.fadedGrey,
                 labelColor: CustomColors.primary,
@@ -34,7 +34,7 @@ class OrderPage extends StatelessWidget {
             ),
             Expanded(
               child: TabBarView(children: [
-                OrderActive(),
+                _OrderActive(),
                 Center(child: Text('Selesai')),
               ]),
             )
@@ -45,33 +45,38 @@ class OrderPage extends StatelessWidget {
   }
 }
 
-class OrderActive extends StatelessWidget {
-  const OrderActive({
+class _OrderActive extends StatelessWidget {
+  const _OrderActive({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(vertical: 12),
-        itemBuilder: (context, index) {
-          return ItemOrder();
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 8.0);
-        },
-        itemCount: 4);
+    final blocOrder = context.read<OrderBloc>();
+    return RefreshIndicator(
+      onRefresh: () async => await blocOrder.order(),
+      child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: 12),
+          itemBuilder: (context, index) {
+            return _ItemOrder();
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 8.0);
+          },
+          itemCount: 4),
+    );
   }
 }
 
-class ItemOrder extends StatelessWidget {
-  const ItemOrder({
+class _ItemOrder extends StatelessWidget {
+  const _ItemOrder({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final blocOrder = context.read<OrderBloc>();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: CustomColors.white,

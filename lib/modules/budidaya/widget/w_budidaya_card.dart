@@ -26,9 +26,10 @@ class WBudidayaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final price = (budidaya.priceList?.first.price != null)
-        ? budidaya.priceList?.first.price?.toIdr()
+        ? budidaya.priceList?.first.price.toIdr()
         : '-';
-    final waktuPanen = _daysBetween(budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
+    final waktuPanen = _daysBetween(
+        budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
       onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya)),
       child: Container(

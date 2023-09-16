@@ -7,7 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:sstream/sstream.dart';
 
 class OrderBloc {
-  OrderBloc(this._repo);
+  OrderBloc(this._repo) {
+    order();
+  }
 
   final OrderHttpRepo _repo;
 
@@ -82,6 +84,15 @@ class OrderBloc {
       await _repo.cancelOrder(OrderCancelInput(
         id: budidayaID,
       ));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> order() async {
+    try {
+      final response = await _repo.order();
+      print(response);
     } catch (e) {
       rethrow;
     }

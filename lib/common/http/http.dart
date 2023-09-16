@@ -4,6 +4,7 @@ import 'package:app/common/errors/errors.dart';
 import 'package:app/common/http/error.dart';
 import 'package:app/common/http/res.dart';
 import 'package:app/common/http/status.dart';
+import 'package:app/common/model/paginations.dart';
 import 'package:app/config/colors.dart';
 // import 'package:app/common/models/paginations.dart';
 import 'package:app/config/hosts.dart';
@@ -13,11 +14,12 @@ import 'package:iconsax/iconsax.dart';
 
 abstract class HttpService {
   final dio = Dio();
-  Future<dynamic> get(String path, {int? timeOut}) async {
+  Future<dynamic> get(String path,
+      {Paginations? paginations, int? timeOut}) async {
     final token = AuthBloc().getToken();
     final options = BaseOptions(
       baseUrl: host,
-      // queryParameters: paginations?.toMap(),
+      queryParameters: paginations?.toMap(),
       connectTimeout: Duration(milliseconds: timeOut ?? 3000),
       receiveTimeout: Duration(milliseconds: timeOut ?? 3000),
       method: "GET",
