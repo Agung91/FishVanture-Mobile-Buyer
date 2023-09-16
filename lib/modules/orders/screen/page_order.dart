@@ -1,12 +1,15 @@
-import 'package:app/common/widgets/appbar_home.dart';
-import 'package:app/config/colors.dart';
-import 'package:app/config/text_style.dart';
-import 'package:app/modules/orders/bloc/bloc_order.dart';
-import 'package:app/modules/schedule/screen/page_schedule.dart';
+import 'package:app/common/custom/empty_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
+
+import 'package:app/common/widgets/appbar_home.dart';
+import 'package:app/config/colors.dart';
+import 'package:app/config/text_style.dart';
+import 'package:app/modules/orders/bloc/bloc_order.dart';
+import 'package:app/modules/orders/model/model_order.dart';
+import 'package:app/modules/schedule/screen/page_schedule.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({super.key});
@@ -32,10 +35,10 @@ class OrderPage extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: TabBarView(children: [
                 _OrderActive(),
-                Center(child: Text('Selesai')),
+                _OrderComplete(),
               ]),
             )
           ],
@@ -53,32 +56,87 @@ class _OrderActive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocOrder = context.read<OrderBloc>();
-    return RefreshIndicator(
-      onRefresh: () async => await blocOrder.order(),
-      child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(vertical: 12),
-          itemBuilder: (context, index) {
-            return _ItemOrder();
-          },
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 8.0);
-          },
-          itemCount: 4),
-    );
+    return StreamBuilder<List<OrderModel>>(
+        stream: blocOrder.orderActive.stream,
+        initialData: blocOrder.orderActive.value,
+        builder: (context, snapshot) {
+          final listData = snapshot.data;
+          if (listData == null || listData.isEmpty) {
+            return EmptyData(
+              onRefresh: () async => await blocOrder.order(),
+              label: 'Belum ada pesanan terbaru',
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () async => await blocOrder.order(),
+            child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                itemBuilder: (context, index) {
+                  return _ItemOrder(
+                    orderModel: listData[index],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 8.0);
+                },
+                itemCount: listData.length),
+          );
+        });
   }
 }
 
-class _ItemOrder extends StatelessWidget {
-  const _ItemOrder({
+class _OrderComplete extends StatelessWidget {
+  const _OrderComplete({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final blocOrder = context.read<OrderBloc>();
+    return StreamBuilder<List<OrderModel>>(
+        stream: blocOrder.orderComplete.stream,
+        initialData: blocOrder.orderComplete.value,
+        builder: (context, snapshot) {
+          final listData = snapshot.data;
+          if (listData == null || listData.isEmpty) {
+            return EmptyData(
+              onRefresh: () async => await blocOrder.order(),
+              label: 'Belum ada pesanan yang selesai diproses',
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () async => await blocOrder.order(),
+            child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                itemBuilder: (context, index) {
+                  return _ItemOrder(
+                    orderModel: listData[index],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 8.0);
+                },
+                itemCount: listData.length),
+          );
+        });
+  }
+}
+
+class _ItemOrder extends StatelessWidget {
+  const _ItemOrder({
+    Key? key,
+    required this.orderModel,
+  }) : super(key: key);
+
+  final OrderModel orderModel;
+
+  @override
+  Widget build(BuildContext context) {
+    final blocOrder = context.read<OrderBloc>();
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: CustomColors.white,
       child: Column(
         children: [
@@ -99,7 +157,7 @@ class _ItemOrder extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
@@ -115,12 +173,12 @@ class _ItemOrder extends StatelessWidget {
                   color: CustomColors.fadedBlue,
                 )),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Row(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: FadeInImage(
+                child: const FadeInImage(
                   height: 60,
                   width: 80,
                   placeholder: AssetImage('assets/load_img.png'),
@@ -135,7 +193,7 @@ class _ItemOrder extends StatelessWidget {
                     'Ikan Lele',
                     style: CustomTextStyle.body2SemiBold,
                   ),
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
                   Text(
                     '20 kg',
                     style: CustomTextStyle.body2Regular.copyWith(
