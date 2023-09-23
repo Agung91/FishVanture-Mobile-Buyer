@@ -61,11 +61,12 @@ class RoutePond extends RoutePage {
 }
 
 class RouteDetailBudidaya extends RoutePage {
-  RouteDetailBudidaya(BudidayaModel budidaya)
+  RouteDetailBudidaya(BudidayaModel budidaya, String pondName)
       : super(
           MaterialPage(
               child: DetailBudidayaPage(
             budidayaModel: budidaya,
+            pondName: pondName,
           )),
           'detail-budidaya',
         );

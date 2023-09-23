@@ -1,8 +1,8 @@
-import 'package:app/common/custom/format_number.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
+import 'package:app/common/custom/format_number.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
 import 'package:app/core/route/bloc_route.dart';
@@ -13,9 +13,11 @@ class WBudidayaCard extends StatelessWidget {
   const WBudidayaCard({
     Key? key,
     required this.budidaya,
+    required this.pondName,
   }) : super(key: key);
 
   final BudidayaModel budidaya;
+  final String pondName;
 
   int _daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
@@ -25,13 +27,17 @@ class WBudidayaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final price = (budidaya.priceList?.first.price != null)
-        ? budidaya.priceList?.first.price.toIdr()
-        : '-';
+    final price = budidaya.priceList;
+    price?.sort(
+      (a, b) => a.limit - b.limit,
+    );
+    // final price = (budidaya.priceList?.first.price != null)
+    //     ? budidaya.priceList?.first.price.toIdr()
+    //     : '-';
     final waktuPanen = _daysBetween(
         budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
-      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya)),
+      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya,pondName)),
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 200,
@@ -64,7 +70,7 @@ class WBudidayaCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              price ?? '-',
+              price?.first.price.toIdr() ?? '-',
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),

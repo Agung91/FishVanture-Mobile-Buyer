@@ -29,6 +29,10 @@ class WCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 168,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: CustomColors.white,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,7 +74,8 @@ class WCard extends StatelessWidget {
                 ),
                 SizedBox(width: 4),
                 Text(
-                  '123 Hari',
+                  // '123 Hari',
+                  '',
                   style: CustomTextStyle.body2Medium.copyWith(
                     color: CustomColors.primary,
                   ),
@@ -78,10 +83,6 @@ class WCard extends StatelessWidget {
               ],
             )
           ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: CustomColors.white,
         ),
       ),
     );

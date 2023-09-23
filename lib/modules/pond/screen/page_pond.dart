@@ -1,10 +1,10 @@
-import 'package:app/common/widgets/button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/common/custom/launch_url.dart';
+import 'package:app/common/widgets/button.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
 import 'package:app/core/route/bloc_route.dart';
@@ -43,7 +43,7 @@ class PondPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 _WAddress(pondModel: pondModel),
                 const SizedBox(height: 24),
-                _WBudidaya(),
+                _WBudidaya(pondName: pondModel.name),
                 const SizedBox(height: 16),
                 // _WActionButton(pondModel: pondModel),
               ],
@@ -63,69 +63,13 @@ class PondPage extends StatelessWidget {
   }
 }
 
-class _WActionButton extends StatelessWidget {
-  const _WActionButton({
-    Key? key,
-    required this.pondModel,
-  }) : super(key: key);
-
-  final PondModel pondModel;
-
-  @override
-  Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: CustomColors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: CustomColors.primary),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    // blocPond.updatePondActived(pondModel.id).then((value) =>
-                    //     snacBarPopUp(context,
-                    //         color: CustomColors.green,
-                    //         icon: IconlyBold.tick_square,
-                    //         text: 'Berhasil mengaktifkan budidaya'));
-                    // RouteBloc().pop();
-                  },
-                  child: Text(
-                    'Terima',
-                    style: CustomTextStyle.body2Medium
-                        .copyWith(color: CustomColors.primary),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-}
-
 class _WBudidaya extends StatelessWidget {
   const _WBudidaya({
     Key? key,
+    required this.pondName,
   }) : super(key: key);
+
+  final String pondName;
 
   @override
   Widget build(BuildContext context) {
@@ -156,12 +100,12 @@ class _WBudidaya extends StatelessWidget {
                   return ListView.separated(
                     padding: const EdgeInsets.symmetric(
                       vertical: 12,
-                      horizontal: 12,
                     ),
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return WBudidayaCard(
+                        pondName:pondName,
                         budidaya: listData[index],
                       );
                     },
@@ -265,6 +209,7 @@ class _WImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blocBudidaya = context.read<BudidayaBloc>();
     return Stack(
       children: [
         AspectRatio(
@@ -286,7 +231,9 @@ class _WImage extends StatelessWidget {
             },
           ),
         ),
-        _BackButton()
+        _BackButton(
+          onBack: () => blocBudidaya.makeEmpty(),
+        )
       ],
     );
   }
@@ -294,8 +241,10 @@ class _WImage extends StatelessWidget {
 
 class _BackButton extends StatelessWidget {
   const _BackButton({
-    super.key,
-  });
+    Key? key,
+    this.onBack,
+  }) : super(key: key);
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +253,9 @@ class _BackButton extends StatelessWidget {
       left: 24,
       child: InkWell(
         onTap: () {
+          if (onBack != null) {
+            onBack!();
+          }
           RouteBloc().pop();
         },
         child: SizedBox(

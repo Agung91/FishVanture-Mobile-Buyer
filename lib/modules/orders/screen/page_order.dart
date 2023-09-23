@@ -1,10 +1,9 @@
 import 'package:app/common/custom/empty_data.dart';
 import 'package:app/common/custom/format_number.dart';
 import 'package:app/common/widgets/button.dart';
+import 'package:app/modules/orders/model/order_status.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -157,7 +156,8 @@ class _ItemOrder extends StatelessWidget {
               Text(
                 // '17 November 2022 - 16:47 WIB',
                 DateFormat('EEEE, dd MMMM yyyy', 'id')
-                    .format(orderModel.createdAt),
+                    // .format(orderModel.createdAt),
+                    .format(orderModel.bookingDate),
                 style: CustomTextStyle.body3Regular.copyWith(
                   color: CustomColors.grey,
                 ),
@@ -171,12 +171,12 @@ class _ItemOrder extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
-                  color: CustomColors.fadedBlue,
+                  color: OrderStatus.statusFadedColor(orderModel.status),
                 ),
                 child: Text(
-                  'Sedang Proses',
+                  OrderStatus.statusInfo(orderModel.status),
                   style: CustomTextStyle.body3Regular.copyWith(
-                    color: CustomColors.primary,
+                    color: OrderStatus.statusColor(orderModel.status),
                   ),
                 )),
           ),
@@ -184,7 +184,7 @@ class _ItemOrder extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
                   height: 60,
                   width: 80,
@@ -214,22 +214,41 @@ class _ItemOrder extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Text(
+          //         DateFormat('EEEE, dd MMMM yyyy', 'id')
+          //             .format(orderModel.bookingDate),
+          //         style: CustomTextStyle.body2Regular,
+          //       ),
+          //     ),
+          // Expanded(
+          // child:
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              // 'Rp 2.600.000',
               orderModel.ammout.toIdr(),
               style: CustomTextStyle.body1SemiBold,
             ),
           ),
+          // ),
+          //   ],
+          // ),
           const SizedBox(height: 12),
-          CustomButton(
-            borderColor: CustomColors.error,
-            textColor: CustomColors.error,
-            isPrimary: false,
-            textButton: 'Batalkan',
-            onTap: () async {},
-          )
+          if (orderModel.status == OrderStatus.active) ...[
+            CustomButton(
+              borderColor: CustomColors.error,
+              textColor: CustomColors.error,
+              isPrimary: false,
+              textButton: 'Batalkan',
+              onTap: () async {
+                // TODO diberi alert dialog
+                await blocOrder.cancelOrder(orderModel.id);
+                blocOrder.order();
+              },
+            )
+          ]
         ],
       ),
     );

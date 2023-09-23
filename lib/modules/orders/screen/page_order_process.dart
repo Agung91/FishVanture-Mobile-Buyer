@@ -85,15 +85,15 @@ class OrderProcessPage extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          budidayaModel.fishSpecies.name.toUpperCase(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
+                      Text(
+                        budidayaModel.fishSpecies.name.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 16),
                       ),
+                      const SizedBox(height: 6),
+                      Text('Stok ${budidayaModel.estTonase?.toInt()}kg'),
                       const SizedBox(height: 6),
                       Row(
                         children: [
@@ -180,10 +180,10 @@ class OrderProcessPage extends StatelessWidget {
                   'Tanggal Pemesanan',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 8),
                 const Text(
                   // 'Tanggal yang akan Anda tentukan adalah tanggal ketika Anda akan melakukan pemesanan ',
-                  'Tanggal yang akan ditentukan akan menjadi tanggal pengambilan pesanan Anda',
+                  'Tanggal yang ditentukan akan menjadi tanggal pengambilan pesanan Anda',
                 ),
                 DatePicker(
                     helpText: 'PILIH TANGGAL PEMESANAN',
