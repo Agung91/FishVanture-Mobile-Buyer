@@ -1,9 +1,11 @@
 import 'package:app/common/custom/empty_data.dart';
 import 'package:app/common/custom/format_number.dart';
+import 'package:app/common/custom/snackbar/snackbar_popup.dart';
 import 'package:app/common/widgets/button.dart';
 import 'package:app/modules/orders/model/order_status.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -245,6 +247,11 @@ class _ItemOrder extends StatelessWidget {
               onTap: () async {
                 // TODO diberi alert dialog
                 await blocOrder.cancelOrder(orderModel.id);
+                snacBarPopUp(
+                  message: 'Pesanan Berhasil Dibatalkan',
+                  color: CustomColors.green,
+                  icon: IconlyLight.tick_square,
+                );
                 blocOrder.order();
               },
             )

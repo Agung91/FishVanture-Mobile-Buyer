@@ -13,10 +13,7 @@ class OrderHttpRepo extends HttpService implements OrderService {
         '$host/update-order-cancel',
         body: input.toMap(),
       );
-      if (response is Map<String, dynamic>) {
         return response.id;
-      }
-      throw 'Can\'t parse Order model';
     } catch (e) {
       rethrow;
     }
@@ -31,10 +28,7 @@ class OrderHttpRepo extends HttpService implements OrderService {
         '$host/create-order',
         body: input.toMap(),
       );
-      if (response is Map<String, dynamic>) {
         return response.id;
-      }
-      throw 'Can\'t parse Order model';
     } catch (e) {
       rethrow;
     }

@@ -34,10 +34,10 @@ class WBudidayaCard extends StatelessWidget {
     // final price = (budidaya.priceList?.first.price != null)
     //     ? budidaya.priceList?.first.price.toIdr()
     //     : '-';
-    final waktuPanen = _daysBetween(
-        budidaya.dateOfSeed, budidaya.estPanenDate ?? DateTime.now());
+    final waktuPanen =
+        _daysBetween(DateTime.now(), budidaya.estPanenDate ?? DateTime.now());
     return GestureDetector(
-      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya,pondName)),
+      onTap: () => RouteBloc().push(RouteDetailBudidaya(budidaya, pondName)),
       child: Container(
         padding: const EdgeInsets.all(6.0),
         width: 200,

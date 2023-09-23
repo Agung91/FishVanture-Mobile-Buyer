@@ -37,7 +37,7 @@ class DetailBudidayaPage extends StatelessWidget {
       (a, b) => a.limit - b.limit,
     );
     final waktuPanen = _daysBetween(
-        budidayaModel.dateOfSeed, budidayaModel.estPanenDate ?? DateTime.now());
+        DateTime.now(), budidayaModel.estPanenDate ?? DateTime.now());
     final umur = _daysBetween(budidayaModel.dateOfSeed, DateTime.now());
     return Scaffold(
       backgroundColor: CustomColors.background,
