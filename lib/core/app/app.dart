@@ -1,3 +1,5 @@
+import 'package:app/modules/home/bloc/bloc_home.dart';
+import 'package:app/modules/home/repo/repo_home.dart';
 import 'package:app/modules/orders/bloc/bloc_order.dart';
 import 'package:app/modules/orders/repo/repo_order.dart';
 import 'package:flutter/foundation.dart';
@@ -71,6 +73,9 @@ class _AppState extends State<App> {
         ),
         Provider(
           create: (_) => OrderBloc(OrderHttpRepo()),
+        ),
+        Provider(
+          create: (_) => HomeBloc(HomeHttpRepo()),
         ),
       ],
       child: MaterialApp(

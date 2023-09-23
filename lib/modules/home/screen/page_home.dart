@@ -1,6 +1,7 @@
 import 'package:app/common/custom/empty_data.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/modules/home/bloc/bloc_home.dart';
 import 'package:app/modules/home/widget/corousel.dart';
 import 'package:app/modules/home/widget/w_card.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
@@ -16,133 +17,140 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocPond = context.read<PondBloc>();
+    final blocHome = context.read<HomeBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            const SizedBox(height: 24),
-            const HomeCorousel(),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Panen terdekat',
-                    style: CustomTextStyle.body2SemiBold,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        'Lihat Semua',
-                        style: CustomTextStyle.body2SemiBold.copyWith(
-                          color: CustomColors.primary,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          blocHome.banners();
+          await blocPond.getPonds();
+        },
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              const HomeCorousel(),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Panen terdekat',
+                      style: CustomTextStyle.body2SemiBold,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Text(
+                          'Lihat Semua',
+                          style: CustomTextStyle.body2SemiBold.copyWith(
+                            color: CustomColors.primary,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              height: 208,
-              child: StreamBuilder<List<PondModel>>(
-                  stream: blocPond.listPond.stream,
-                  initialData: blocPond.listPond.value,
-                  builder: (context, snapshot) {
-                    final listData = snapshot.data;
-                    if (listData == null || listData.isEmpty) {
-                      return EmptyData(
-                        label: 'Belum ada panen terdekat',
+              const SizedBox(height: 2),
+              SizedBox(
+                height: 208,
+                child: StreamBuilder<List<PondModel>>(
+                    stream: blocPond.listPond.stream,
+                    initialData: blocPond.listPond.value,
+                    builder: (context, snapshot) {
+                      final listData = snapshot.data;
+                      if (listData == null || listData.isEmpty) {
+                        return EmptyData(
+                          label: 'Belum ada panen terdekat',
+                          onRefresh: () => blocPond.getPonds(),
+                        );
+                      }
+                      return RefreshIndicator(
                         onRefresh: () => blocPond.getPonds(),
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          itemBuilder: (context, index) {
+                            return WCard(
+                              pondModel: listData[index],
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 8.0);
+                          },
+                          itemCount: listData.length,
+                        ),
                       );
-                    }
-                    return RefreshIndicator(
-                      onRefresh: () => blocPond.getPonds(),
-                      child: ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        itemBuilder: (context, index) {
-                          return WCard(
-                            pondModel: listData[index],
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 8.0);
-                        },
-                        itemCount: listData.length,
-                      ),
-                    );
-                  }),
-            ),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Lainnya',
-                    style: CustomTextStyle.body2SemiBold,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        'Lihat Semua',
-                        style: CustomTextStyle.body2SemiBold.copyWith(
-                          color: CustomColors.primary,
+                    }),
+              ),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Lainnya',
+                      style: CustomTextStyle.body2SemiBold,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: Text(
+                          'Lihat Semua',
+                          style: CustomTextStyle.body2SemiBold.copyWith(
+                            color: CustomColors.primary,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              height: 208,
-              child: StreamBuilder<List<PondModel>>(
-                  stream: blocPond.listPond.stream,
-                  initialData: blocPond.listPond.value,
-                  builder: (context, snapshot) {
-                    final listData = snapshot.data;
-                    if (listData == null || listData.isEmpty) {
-                      return EmptyData(
-                        label: 'Belum ada panen terdekat',
+              const SizedBox(height: 2),
+              SizedBox(
+                height: 208,
+                child: StreamBuilder<List<PondModel>>(
+                    stream: blocPond.listPond.stream,
+                    initialData: blocPond.listPond.value,
+                    builder: (context, snapshot) {
+                      final listData = snapshot.data;
+                      if (listData == null || listData.isEmpty) {
+                        return EmptyData(
+                          label: 'Belum ada panen terdekat',
+                          onRefresh: () => blocPond.getPonds(),
+                        );
+                      }
+                      return RefreshIndicator(
                         onRefresh: () => blocPond.getPonds(),
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          itemBuilder: (context, index) {
+                            return WCard(
+                              pondModel: listData[index],
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(width: 8.0);
+                          },
+                          itemCount: listData.length,
+                        ),
                       );
-                    }
-                    return RefreshIndicator(
-                      onRefresh: () => blocPond.getPonds(),
-                      child: ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        itemBuilder: (context, index) {
-                          return WCard(
-                            pondModel: listData[index],
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 8.0);
-                        },
-                        itemCount: listData.length,
-                      ),
-                    );
-                  }),
-            ),
-            const SizedBox(height: 20),
-          ],
+                    }),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

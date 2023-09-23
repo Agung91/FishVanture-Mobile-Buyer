@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:app/modules/home/model/model_promos.dart';
 import 'package:app/modules/home/repo/repo_home.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/modules/home/bloc/bloc_home.dart';
+import 'package:provider/provider.dart';
 // import 'package:app/modules/banner/model/promos.dart';
 
 class HomeCorousel extends StatelessWidget {
@@ -12,14 +14,17 @@ class HomeCorousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocHome = HomeBloc();
+    final blocHome = context.read<HomeBloc>();
     return StreamBuilder<List<PromosModel>>(
         stream: blocHome.listBanner.stream,
         initialData: blocHome.listBanner.value,
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null || data.isEmpty) {
-            return const AspectRatio(aspectRatio: 6 / 3, child: SizedBox());
+            return const AspectRatio(
+              aspectRatio: 6 / 3,
+              child: SizedBox(),
+            );
             // return const SizedBox();
           }
           return Corosel(
@@ -61,7 +66,7 @@ class _CoroselState extends State<Corosel> {
 
     for (var i = 0; i < 8; i++) {
       // widget.items.map((e) => images.add(e.imagesLink)).toList();
-      widget.items.map((e) => images.add(e.imagesLink)).toList();
+      widget.items.map((e) => images.add(e.link)).toList();
     }
 
     timer = Timer.periodic(
@@ -117,7 +122,7 @@ class _CoroselState extends State<Corosel> {
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
                     // image: AssetImage('assets/images/banner.png'),
-                    image: AssetImage(images[index]),
+                    image: CachedNetworkImageProvider(images[index]),
                     // image: NetworkImage(images[index]),
                     fit: BoxFit.cover,
                   ),

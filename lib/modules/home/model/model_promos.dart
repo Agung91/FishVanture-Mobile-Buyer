@@ -2,62 +2,57 @@ import 'dart:convert';
 
 class PromosModel {
   final String id;
-  final String title;
+  final String name;
   final String description;
   final String startDate;
   final String endDate;
-  final String imagesName;
+  final String link;
   PromosModel({
     required this.id,
-    required this.title,
+    required this.name,
     required this.description,
     required this.startDate,
     required this.endDate,
-    required this.imagesName,
-    required this.imagesLink,
+    required this.link,
   });
 
   PromosModel copyWith({
     String? id,
-    String? tittle,
+    String? name,
     String? description,
     String? startDate,
     String? endDate,
-    String? imagesName,
-    String? imagesLink,
+    String? link,
   }) {
     return PromosModel(
       id: id ?? this.id,
-      title: tittle ?? this.title,
+      name: name ?? this.name,
       description: description ?? this.description,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      imagesName: imagesName ?? this.imagesName,
-      imagesLink: imagesLink ?? this.imagesLink,
+      link: link ?? this.link,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'tittle': title,
+      'name': name,
       'description': description,
       'startDate': startDate,
       'endDate': endDate,
-      'imagesName': imagesName,
-      'imagesLink': imagesLink,
+      'link': link,
     };
   }
 
   factory PromosModel.fromMap(Map<String, dynamic> map) {
     return PromosModel(
       id: map['id'] ?? '',
-      title: map['tittle'] ?? '',
+      name: map['name'] ?? '',
       description: map['description'] ?? '',
       startDate: map['startDate'] ?? '',
       endDate: map['endDate'] ?? '',
-      imagesName: map['imagesName'] ?? '',
-      imagesLink: map['imagesLink'] ?? '',
+      link: map['link'] ?? '',
     );
   }
 
@@ -68,7 +63,7 @@ class PromosModel {
 
   @override
   String toString() {
-    return 'PromosModel(id: $id, tittle: $title, description: $description, startDate: $startDate, endDate: $endDate, imagesName: $imagesName, imagesLink: $imagesLink)';
+    return 'PromosModel(id: $id, name: $name, description: $description, startDate: $startDate, endDate: $endDate, link: $link)';
   }
 
   @override
@@ -77,24 +72,20 @@ class PromosModel {
 
     return other is PromosModel &&
         other.id == id &&
-        other.title == title &&
+        other.name == name &&
         other.description == description &&
         other.startDate == startDate &&
         other.endDate == endDate &&
-        other.imagesName == imagesName &&
-        other.imagesLink == imagesLink;
+        other.link == link;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        title.hashCode ^
+        name.hashCode ^
         description.hashCode ^
         startDate.hashCode ^
         endDate.hashCode ^
-        imagesName.hashCode ^
-        imagesLink.hashCode;
+        link.hashCode;
   }
-
-  final String imagesLink;
 }
