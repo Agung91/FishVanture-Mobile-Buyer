@@ -129,7 +129,7 @@ class DetailBudidayaPage extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'Stok ${budidayaModel.estTonase?.toInt()}kg',
+                              'Stok ${budidayaModel.stock?.toInt()}kg',
                               style: CustomTextStyle.body2Medium.copyWith(
                                 color: CustomColors.grey,
                               ),

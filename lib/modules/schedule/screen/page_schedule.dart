@@ -3,6 +3,7 @@ import 'package:app/common/widgets/appbar_home.dart';
 import 'package:app/config/text_style.dart';
 import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
 import 'package:app/modules/budidaya/model/model_budidaya.dart';
+import 'package:app/modules/budidaya/widget/w_budidaya_card.dart';
 import 'package:app/modules/pond/bloc/bloc_pond.dart';
 import 'package:app/modules/pond/model/model_pond.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +19,23 @@ class SchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final blocPond = context.read<PondBloc>();
+    final blocBudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const CustomAppbarHome(appbarText: 'Jadwal Panen'),
-      body: StreamBuilder<List<PondModel>>(
-          stream: blocPond.listPond.stream,
-          initialData: blocPond.listPond.value,
+      body: StreamBuilder<List<BudidayaModel>>(
+          stream: blocBudidaya.nearestBudidaya.stream,
+          initialData: blocBudidaya.nearestBudidaya.value,
           builder: (context, snapshot) {
             final listData = snapshot.data;
             if (listData == null || listData.isEmpty) {
               return EmptyData(
                 label: 'Belum ada panen terdekat',
-                onRefresh: () => blocPond.getPonds(),
+                onRefresh: () => blocBudidaya.budidayas(),
               );
             }
             return RefreshIndicator(
-              onRefresh: () => blocPond.getPonds(),
+              onRefresh: () => blocBudidaya.budidayas(),
               child: MasonryGridView.builder(
                 physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics()),
@@ -47,8 +48,9 @@ class SchedulePage extends StatelessWidget {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 itemBuilder: (context, index) {
-                  return WCard(
-                    pondModel: listData[index],
+                  return WBudidayaCard(
+                    pondName: listData[index].pond?.name ?? '-',
+                    budidaya: listData[index],
                   );
                 },
                 itemCount: listData.length,

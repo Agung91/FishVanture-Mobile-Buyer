@@ -1,6 +1,9 @@
 import 'package:app/common/custom/empty_data.dart';
 import 'package:app/config/colors.dart';
 import 'package:app/config/text_style.dart';
+import 'package:app/modules/budidaya/bloc/bloc_budidaya.dart';
+import 'package:app/modules/budidaya/model/model_budidaya.dart';
+import 'package:app/modules/budidaya/widget/w_budidaya_card.dart';
 import 'package:app/modules/home/bloc/bloc_home.dart';
 import 'package:app/modules/home/widget/corousel.dart';
 import 'package:app/modules/home/widget/w_card.dart';
@@ -18,12 +21,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final blocPond = context.read<PondBloc>();
     final blocHome = context.read<HomeBloc>();
+    final blocBudidaya = context.read<BudidayaBloc>();
     return Scaffold(
       backgroundColor: CustomColors.background,
       appBar: const _AppbarHome(),
       body: RefreshIndicator(
         onRefresh: () async {
           blocHome.banners();
+          blocBudidaya.budidayas();
           await blocPond.getPonds();
         },
         child: SingleChildScrollView(
@@ -59,27 +64,28 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               SizedBox(
-                height: 208,
-                child: StreamBuilder<List<PondModel>>(
-                    stream: blocPond.listPond.stream,
-                    initialData: blocPond.listPond.value,
+                height: 220,
+                child: StreamBuilder<List<BudidayaModel>>(
+                    stream: blocBudidaya.nearestBudidaya.stream,
+                    initialData: blocBudidaya.nearestBudidaya.value,
                     builder: (context, snapshot) {
                       final listData = snapshot.data;
                       if (listData == null || listData.isEmpty) {
                         return EmptyData(
                           label: 'Belum ada panen terdekat',
-                          onRefresh: () => blocPond.getPonds(),
+                          onRefresh: () => blocBudidaya.budidayas(),
                         );
                       }
                       return RefreshIndicator(
-                        onRefresh: () => blocPond.getPonds(),
+                        onRefresh: () => blocBudidaya.budidayas(),
                         child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           itemBuilder: (context, index) {
-                            return WCard(
-                              pondModel: listData[index],
+                            return WBudidayaCard(
+                              pondName: listData[index].pond?.name ?? '',
+                              budidaya: listData[index],
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -117,7 +123,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               SizedBox(
-                height: 208,
+                height: 200,
                 child: StreamBuilder<List<PondModel>>(
                     stream: blocPond.listPond.stream,
                     initialData: blocPond.listPond.value,

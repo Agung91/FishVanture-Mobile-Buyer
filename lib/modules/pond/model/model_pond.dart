@@ -12,13 +12,13 @@ class PondModel {
   final String userID;
   final UserPond? user;
   final String countryID;
-  final CountryModel country;
+  final CountryModel? country;
   final String provinceID;
-  final ProvinceModel province;
+  final ProvinceModel? province;
   final String cityID;
-  final CityModel city;
+  final CityModel? city;
   final String districtID;
-  final DistrictModel district;
+  final DistrictModel? district;
   final String detailAddress;
   final String noteAddress;
   final String type;
@@ -34,7 +34,7 @@ class PondModel {
     required this.id,
     required this.name,
     required this.userID,
-    required this.user,
+    this.user,
     required this.countryID,
     required this.country,
     required this.provinceID,
@@ -50,7 +50,7 @@ class PondModel {
     required this.status,
     this.latitude,
     this.longitude,
-    required this.teamID,
+    this.teamID,
     required this.image,
     this.listPool,
     this.berkas,
@@ -115,13 +115,13 @@ class PondModel {
       'userID': userID,
       'user': user?.toMap(),
       'countryID': countryID,
-      'country': country.toMap(),
+      'country': country?.toMap(),
       'provinceID': provinceID,
-      'province': province.toMap(),
+      'province': province?.toMap(),
       'cityID': cityID,
-      'city': city.toMap(),
+      'city': city?.toMap(),
       'districtID': districtID,
-      'district': district.toMap(),
+      'district': district?.toMap(),
       'detailAddress': detailAddress,
       'noteAddress': noteAddress,
       'type': type,
@@ -143,13 +143,18 @@ class PondModel {
       userID: map['userID'] ?? '',
       user: map['user'] != null ? UserPond.fromMap(map['user']) : null,
       countryID: map['countryID'] ?? '',
-      country: CountryModel.fromMap(map['country']),
+      country:
+          map['country'] != null ? CountryModel.fromMap(map['country']) : null,
       provinceID: map['provinceID'] ?? '',
-      province: ProvinceModel.fromMap(map['province']),
+      province: map['province'] != null
+          ? ProvinceModel.fromMap(map['province'])
+          : null,
       cityID: map['cityID'] ?? '',
-      city: CityModel.fromMap(map['city']),
+      city: map['city'] != null ? CityModel.fromMap(map['city']) : null,
       districtID: map['districtID'] ?? '',
-      district: DistrictModel.fromMap(map['district']),
+      district: map['district'] != null
+          ? DistrictModel.fromMap(map['district'])
+          : null,
       detailAddress: map['detailAddress'] ?? '',
       noteAddress: map['noteAddress'] ?? '',
       type: map['type'] ?? '',

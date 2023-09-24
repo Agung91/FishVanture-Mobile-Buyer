@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-import 'package:app/modules/pond/model/model_pond.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/modules/budidaya/model/model_price_list.dart';
 import 'package:app/modules/budidaya/model/model_upload_file.dart';
+import 'package:app/modules/pond/model/model_pond.dart';
 
 class BudidayaModel {
   final String id;
   final String pondID;
+  final PondModel? pond;
   final String poolID;
   final PoolModel pool;
   final DateTime dateOfSeed;
@@ -18,20 +19,25 @@ class BudidayaModel {
   final double? estTonase;
   final DateTime? estPanenDate;
   final int? estPrice;
+  final int? sold;
+  final int? stock;
   final String status;
   final List<PriceListModel>? priceList;
   BudidayaModel({
     required this.id,
     required this.pondID,
+    this.pond,
     required this.poolID,
     required this.pool,
     required this.dateOfSeed,
     required this.fishSpeciesID,
     required this.fishSpecies,
     this.fishSpeciesName,
-    required this.estTonase,
+    this.estTonase,
     this.estPanenDate,
     this.estPrice,
+    this.sold,
+    this.stock,
     required this.status,
     this.priceList,
   });
@@ -39,6 +45,7 @@ class BudidayaModel {
   BudidayaModel copyWith({
     String? id,
     String? pondID,
+    PondModel? pond,
     String? poolID,
     PoolModel? pool,
     DateTime? dateOfSeed,
@@ -48,12 +55,15 @@ class BudidayaModel {
     double? estTonase,
     DateTime? estPanenDate,
     int? estPrice,
+    int? sold,
+    int? stock,
     String? status,
     List<PriceListModel>? priceList,
   }) {
     return BudidayaModel(
       id: id ?? this.id,
       pondID: pondID ?? this.pondID,
+      pond: pond ?? this.pond,
       poolID: poolID ?? this.poolID,
       pool: pool ?? this.pool,
       dateOfSeed: dateOfSeed ?? this.dateOfSeed,
@@ -63,6 +73,8 @@ class BudidayaModel {
       estTonase: estTonase ?? this.estTonase,
       estPanenDate: estPanenDate ?? this.estPanenDate,
       estPrice: estPrice ?? this.estPrice,
+      sold: sold ?? this.sold,
+      stock: stock ?? this.stock,
       status: status ?? this.status,
       priceList: priceList ?? this.priceList,
     );
@@ -72,6 +84,7 @@ class BudidayaModel {
     return {
       'id': id,
       'pondID': pondID,
+      'pond': pond?.toMap(),
       'poolID': poolID,
       'pool': pool.toMap(),
       'dateOfSeed': dateOfSeed.toUtc().toIso8601String(),
@@ -81,6 +94,8 @@ class BudidayaModel {
       'estTonase': estTonase,
       'estPanenDate': estPanenDate?.toUtc().toIso8601String(),
       'estPrice': estPrice,
+      'sold': sold,
+      'stock': stock,
       'status': status,
       'priceList': priceList?.map((x) => x.toMap()).toList(),
     };
@@ -90,6 +105,7 @@ class BudidayaModel {
     return BudidayaModel(
       id: map['id'] ?? '',
       pondID: map['pondID'] ?? '',
+      pond: map['pond'] != null ? PondModel.fromMap(map['pond']) : null,
       poolID: map['poolID'] ?? '',
       pool: PoolModel.fromMap(map['pool']),
       dateOfSeed: DateTime.parse(map['dateOfSeed']).toLocal(),
@@ -101,6 +117,8 @@ class BudidayaModel {
           ? DateTime.parse(map['estPanenDate']).toLocal()
           : null,
       estPrice: map['estPrice']?.toInt(),
+      sold: map['sold']?.toInt(),
+      stock: map['stock']?.toInt(),
       status: map['status'] ?? '',
       priceList: map['priceList'] != null
           ? List<PriceListModel>.from(
@@ -116,7 +134,7 @@ class BudidayaModel {
 
   @override
   String toString() {
-    return 'BudidayaModel(id: $id, pondID: $pondID, poolID: $poolID, pool: $pool, dateOfSeed: $dateOfSeed, fishSpeciesID: $fishSpeciesID, fishSpecies: $fishSpecies, fishSpeciesName: $fishSpeciesName, estTonase: $estTonase, estPanenDate: $estPanenDate, estPrice: $estPrice, status: $status, priceList: $priceList)';
+    return 'BudidayaModel(id: $id, pondID: $pondID, pond: $pond, poolID: $poolID, pool: $pool, dateOfSeed: $dateOfSeed, fishSpeciesID: $fishSpeciesID, fishSpecies: $fishSpecies, fishSpeciesName: $fishSpeciesName, estTonase: $estTonase, estPanenDate: $estPanenDate, estPrice: $estPrice, sold: $sold, stock: $stock, status: $status, priceList: $priceList)';
   }
 
   @override
@@ -126,6 +144,7 @@ class BudidayaModel {
     return other is BudidayaModel &&
         other.id == id &&
         other.pondID == pondID &&
+        other.pond == pond &&
         other.poolID == poolID &&
         other.pool == pool &&
         other.dateOfSeed == dateOfSeed &&
@@ -135,6 +154,8 @@ class BudidayaModel {
         other.estTonase == estTonase &&
         other.estPanenDate == estPanenDate &&
         other.estPrice == estPrice &&
+        other.sold == sold &&
+        other.stock == stock &&
         other.status == status &&
         listEquals(other.priceList, priceList);
   }
@@ -143,6 +164,7 @@ class BudidayaModel {
   int get hashCode {
     return id.hashCode ^
         pondID.hashCode ^
+        pond.hashCode ^
         poolID.hashCode ^
         pool.hashCode ^
         dateOfSeed.hashCode ^
@@ -152,6 +174,8 @@ class BudidayaModel {
         estTonase.hashCode ^
         estPanenDate.hashCode ^
         estPrice.hashCode ^
+        sold.hashCode ^
+        stock.hashCode ^
         status.hashCode ^
         priceList.hashCode;
   }

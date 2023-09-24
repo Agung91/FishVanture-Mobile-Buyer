@@ -16,11 +16,11 @@ class WCard extends StatelessWidget {
 
   final PondModel pondModel;
 
-  int _daysBetween(DateTime from, DateTime to) {
-    from = DateTime(from.year, from.month, from.day);
-    to = DateTime(to.year, to.month, to.day);
-    return (to.difference(from).inHours / 24).round();
-  }
+  // int _daysBetween(DateTime from, DateTime to) {
+  //   from = DateTime(from.year, from.month, from.day);
+  //   to = DateTime(to.year, to.month, to.day);
+  //   return (to.difference(from).inHours / 24).round();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,30 +58,30 @@ class WCard extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              'Desa ${pondModel.district.name}, Kec. ${pondModel.district.name} - ${pondModel.city.name}',
+              'Desa ${pondModel.district?.name}, Kec. ${pondModel.district?.name} - ${pondModel.city?.name}',
               style: CustomTextStyle.body3Regular.copyWith(
                 color: CustomColors.grey,
               ),
             ),
             SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  IconlyBold.time_circle,
-                  size: 16,
-                  color: CustomColors.primary,
-                ),
-                SizedBox(width: 4),
-                Text(
-                  // '123 Hari',
-                  '',
-                  style: CustomTextStyle.body2Medium.copyWith(
-                    color: CustomColors.primary,
-                  ),
-                ),
-              ],
-            )
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Icon(
+            //       IconlyBold.time_circle,
+            //       size: 16,
+            //       color: CustomColors.primary,
+            //     ),
+            //     SizedBox(width: 4),
+            //     Text(
+            //       // '123 Hari',
+            //       '',
+            //       style: CustomTextStyle.body2Medium.copyWith(
+            //         color: CustomColors.primary,
+            //       ),
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),

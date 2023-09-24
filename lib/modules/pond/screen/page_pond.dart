@@ -27,11 +27,11 @@ class PondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blocBudidaya = context.read<BudidayaBloc>();
-    blocBudidaya.getListBudidaya(pondModel.id);
+    blocBudidaya.budidayaPond(pondModel.id);
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: RefreshIndicator(
-        onRefresh: () async => await blocBudidaya.getListBudidaya(pondModel.id),
+        onRefresh: () async => await blocBudidaya.budidayaPond(pondModel.id),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Column(
@@ -86,8 +86,8 @@ class _WBudidaya extends StatelessWidget {
           SizedBox(
             height: 236,
             child: StreamBuilder<List<BudidayaModel>>(
-                stream: blocBudidaya.listBudidaya.stream,
-                initialData: blocBudidaya.listBudidaya.value,
+                stream: blocBudidaya.pondBudidaya.stream,
+                initialData: blocBudidaya.pondBudidaya.value,
                 builder: (context, snapshot) {
                   final listData = snapshot.data;
                   if (listData == null || listData.isEmpty) {
@@ -105,7 +105,7 @@ class _WBudidaya extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return WBudidayaCard(
-                        pondName:pondName,
+                        pondName: pondName,
                         budidaya: listData[index],
                       );
                     },
@@ -147,7 +147,7 @@ class _WAddress extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                '${pondModel.noteAddress} || ${pondModel.detailAddress}, Kecamatan ${pondModel.district.name}, ${pondModel.city.name}, ${pondModel.province.name} - ${pondModel.country.name} ',
+                '${pondModel.noteAddress} || ${pondModel.detailAddress}, Kecamatan ${pondModel.district?.name}, ${pondModel.city?.name}, ${pondModel.province?.name} - ${pondModel.country?.name} ',
                 style: CustomTextStyle.body1Regular,
               ),
             ),
